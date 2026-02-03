@@ -124,7 +124,7 @@ SHEET_ID = '1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg'
 url = f'https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/gviz/tq?tqx=out:csv'
 
 st.write("---")
-st.header("🗺️ Mapa de Avistamientos (Sincronizado)")
+st.header("🗺️ Mapa de Avistamientos (Tiempo Real)")
 st.info("Los colores de los pines coinciden con nuestro semáforo de riesgo biológico.")
 
 try:
