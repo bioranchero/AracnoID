@@ -1,5 +1,35 @@
 import streamlit as st
 
+import streamlit as st
+import streamlit_authenticator as stauth
+
+# --- CONFIGURACIÓN DE USUARIOS ---
+# En un futuro, podrías mover esto a un archivo seguro (.toml)
+nombres = ["Biólogo Ensenada", "Colaborador"]
+usuarios = ["admin", "biologo2"]
+# Las contraseñas deben estar hasheadas por seguridad
+passwords = ["12345", "ensenada2026"] # Cámbialas por las tuyas
+
+# Generar el objeto de autenticación
+authenticator = stauth.Authenticate(
+    nombres, usuarios, passwords,
+    "aracnoid_cookie", "signature_key", cookie_expiry_days=30
+)
+
+# Renderizar el formulario de login
+name, authentication_status, username = authenticator.login("Inicio de Sesión", "main")
+
+if authentication_status == False:
+    st.error("Usuario o contraseña incorrectos")
+    st.stop() # Detiene la app si falló el login
+elif authentication_status == None:
+    st.warning("Por favor, ingresa tus credenciales para registrar avistamientos.")
+    st.stop() # Detiene la app si no han intentado entrar
+
+# SI LLEGA AQUÍ, EL USUARIO ES CORRECTO
+st.sidebar.success(f"Bienvenido, {name}")
+authenticator.logout("Cerrar Sesión", "sidebar")
+
 # Configuración de la página
 st.set_page_config(
     page_title="AracnoID | Biología",
