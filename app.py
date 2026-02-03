@@ -110,4 +110,4 @@ with st.expander("🆘 ¿Qué hacer en caso de mordedura? (Primeros Auxilios)"):
 
 # Pie de página
 st.write("---")
-st.caption("© 2026 Aracno-Ensenada. Proyecto educativo de Biología.")
+st.caption("© 2026 AracnoID.")
