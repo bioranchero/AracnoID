@@ -42,7 +42,7 @@ st.sidebar.divider()
 st.sidebar.write("### ☕ Apoya mi investigación")
 st.sidebar.write("Si esta herramienta te fue útil, puedes apoyar el mantenimiento del servidor y mis salidas a campo.")
 if st.sidebar.button("Invítame un café (PayPal)"):
-    st.sidebar.write("🔗 [Haz clic aquí para donar](https://www.paypal.com/aaronmendezr)") # Aquí pondrás tu link real
+    st.sidebar.write("🔗 [Haz clic aquí para donar](https://paypal.me/aaronmendezr)") # Aquí pondrás tu link real
 
 st.sidebar.divider()
 st.sidebar.write("### 📢 ¡Sígueme!")
