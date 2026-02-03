@@ -1,30 +1,40 @@
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# --- CONFIGURACIÓN DE USUARIOS ---
-# En un futuro, podrías mover esto a un archivo seguro (.toml)
-nombres = ["Biólogo Ensenada", "Colaborador"]
-usuarios = ["admin", "biologo2"]
-# Las contraseñas deben estar hasheadas por seguridad
-passwords = ["12345", "ensenada2026"] # Cámbialas por las tuyas
+# --- CONFIGURACIÓN DE USUARIOS ACTUALIZADA ---
+# Definimos los usuarios en un diccionario como pide la nueva versión
+credentials = {
+    "usernames": {
+        "admin": {
+            "name": "Biólogo Ensenada",
+            "password": "12345" # En producción usarías un hash, pero esto sirve para empezar
+        },
+        "biologo2": {
+            "name": "Colaborador",
+            "password": "ensenada2026"
+        }
+    }
+}
 
-# Generar el objeto de autenticación
+# Creamos el objeto con el nuevo formato
 authenticator = stauth.Authenticate(
-    nombres, usuarios, passwords,
-    "aracnoid_cookie", "signature_key", cookie_expiry_days=30
+    credentials,
+    "aracnoid_cookie",
+    "signature_key",
+    cookie_expiry_days=30
 )
 
-# Renderizar el formulario de login
-name, authentication_status, username = authenticator.login("Inicio de Sesión", "main")
+# Renderizar el formulario de login (ahora es más sencillo)
+name, authentication_status, username = authenticator.login("main")
 
 if authentication_status == False:
     st.error("Usuario o contraseña incorrectos")
-    st.stop() # Detiene la app si falló el login
+    st.stop()
 elif authentication_status == None:
     st.warning("Por favor, ingresa tus credenciales para registrar avistamientos.")
-    st.stop() # Detiene la app si no han intentado entrar
+    st.stop()
 
-# SI LLEGA AQUÍ, EL USUARIO ES CORRECTO
+# Si pasa de aquí, todo está bien
 st.sidebar.success(f"Bienvenido, {name}")
 authenticator.logout("Cerrar Sesión", "sidebar")
 
