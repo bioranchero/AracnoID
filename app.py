@@ -133,25 +133,30 @@ try:
     # Centro el mapa en las coordenadas de tu primer registro en Ensenada
     m = folium.Map(location=[31.8663, -116.6679], zoom_start=12)
 
+  # Recorremos las filas de tu Google Form
     for i, row in df.iterrows():
-        # Lógica de colores del semáforo
-        riesgo_texto = str(row['riesgo']).strip().capitalize()
+        # Lógica de colores y calaveras basada en tu columna 'riesgo'
+        # Usamos .get() por si acaso una celda está vacía
+        riesgo_valor = str(row['riesgo']).strip()
         
-        if riesgo_texto == "Peligro":
+        if riesgo_valor == "Peligro":
             color_final = 'red'
-            icono = 'exclamation-sign'
-        elif riesgo_texto == "Precaución":
+            icono_final = 'skull'
+            prefijo = 'fa'
+        elif riesgo_valor == "Precaución":
             color_final = 'orange'
-            icono = 'warning-sign'
-        else: # Inofensiva
+            icono_final = 'warning'
+            prefijo = 'fa'
+        else:
             color_final = 'green'
-            icono = 'leaf'
+            icono_final = 'leaf'
+            prefijo = 'glyphicon'
         
-        folium.Marker(
+       folium.Marker(
             location=[row['lat'], row['lon']],
-            popup=f"<b>{row['especie']}</b><br>Nivel: {riesgo_texto}<br>📍 {row['lugar']}",
-            icon=folium.Icon(color=color_final, icon=icono),
-            tooltip=f"Ver {row['especie']}"
+            popup=f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}",
+            icon=folium.Icon(color=color_final, icon=icono_final, prefix=prefijo),
+            tooltip="Click para ver detalle"
         ).add_to(m)
 
     st_folium(m, width=700, height=450)
