@@ -108,6 +108,33 @@ with st.expander("🆘 ¿Qué hacer en caso de mordedura? (Primeros Auxilios)"):
     *En Ensenada, acude al Hospital General o al centro de salud más cercano si presentas síntomas graves.*
     """)
 
+st.divider()
+st.header("❓ Preguntas Frecuentes")
+
+with st.expander("¿Todas las arañas son peligrosas?"):
+    st.write("""
+    No. La gran mayoría de las arañas son inofensivas y juegan un papel crucial en el ecosistema controlando plagas de insectos. 
+    En México, solo los géneros *Loxosceles* (violinista) y *Latrodectus* (viuda negra) son considerados de importancia médica severa.
+    """)
+
+with st.expander("¿Qué hago si encuentro una araña en mi casa?"):
+    st.write("""
+    Si no es de importancia médica, lo ideal es reubicarla usando un frasco y una hoja de papel. 
+    Si sospechas que es peligrosa, no intentes manipularla directamente. Mantén la calma y usa esta guía para identificarla.
+    """)
+
+with st.expander("¿La app puede identificar cualquier especie del mundo?"):
+    st.write("""
+    Actualmente, **AracnoID** se enfoca en las familias más comunes y de importancia médica. 
+    Como estudiante de biología, voy actualizando la base de datos para incluir más especies de la región de Baja California y el resto del país.
+    """)
+
+with st.expander("¿Cómo puedo colaborar con el proyecto?"):
+    st.write("""
+    ¡Tus avistamientos ayudan! Puedes contactarme por mis redes sociales para enviarme fotos nítidas 
+    (especialmente de los ojos y marcas del cuerpo) para seguir nutriendo esta herramienta educativa.
+    """)
+
 # Pie de página
 st.write("---")
 st.caption("© 2026 AracnoID.")
