@@ -108,9 +108,9 @@ with st.expander("🆘 ¿Qué hacer en caso de mordedura? (Primeros Auxilios)"):
     *En Ensenada, acude al Hospital General o al centro de salud más cercano si presentas síntomas graves.*
     """)
 
+# --- SECCIÓN DE PREGUNTAS FRECUENTES ---
 st.divider()
 st.header("❓ Preguntas Frecuentes")
-
 with st.expander("¿Todas las arañas son peligrosas?"):
     st.write("""
     No. La gran mayoría de las arañas son inofensivas y juegan un papel crucial en el ecosistema controlando plagas de insectos. 
