@@ -2,7 +2,7 @@ import streamlit as st
 
 # Configuración de la página
 st.set_page_config(
-    page_title="Aracno-Ensenada | Biología",
+    page_title="AracnoID | Biología",
     page_icon="🕷️",
     layout="centered"
 )
@@ -24,7 +24,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Título Principal
-st.title("🕷️ Aracno-Ensenada")
+st.title("🕷️ AracnoID")
 st.subheader("Guía interactiva de aracnofauna local")
 st.write("Herramienta desarrollada para el estudio y divulgación de los arácnidos en Baja California.")
 
@@ -39,11 +39,11 @@ st.sidebar.divider()
 st.sidebar.write("### ☕ Apoya mi investigación")
 st.sidebar.write("Si esta herramienta te fue útil, puedes apoyar el mantenimiento del servidor y mis salidas a campo.")
 if st.sidebar.button("Invítame un café (PayPal)"):
-    st.sidebar.write("🔗 [Haz clic aquí para donar](https://www.paypal.com)") # Aquí pondrás tu link real
+    st.sidebar.write("🔗 [Haz clic aquí para donar](https://www.paypal.com/aaronmendezr)") # Aquí pondrás tu link real
 
 st.sidebar.divider()
 st.sidebar.write("### 📢 ¡Sígueme!")
-st.sidebar.write("[TikTok](https://www.tiktok.com) | [YouTube](https://www.youtube.com)")
+st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https://www.youtube.com/bioranchero)")
 
 # --- SECCIÓN DE IDENTIFICACIÓN ---
 st.header("🔍 Identificador Rápido")
@@ -65,7 +65,7 @@ if ojos == "Tiene dos ojos centrales MUY grandes (como faros)":
 elif ojos == "Tiene dos ojos grandes arriba y cuatro pequeños abajo en fila":
     st.success("### Familia: **Lycosidae** (Arañas Lobo)")
     st.write("**Descripción:** No tejen telas circulares, suelen estar en el suelo. Aunque impresionan por su tamaño, su veneno no es de importancia médica.")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Wolf_spider_eyes.jpg/320px-Wolf_spider_eyes.jpg", caption="Patrón ocular típico de Lycosidae")
+    st.image("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgATtVEMeXZa0J-5sgTIyI5wMswVEbBY2G9C4vZ0DAHM1NuHvwQqov9Hp07WloxygvOq3Axj4OUhc39A2B5ajYNZjbvA-Pd2dUQJXJvJP57Bms4GcHj7SCyzK3sBLs1VWomSXpOZaDpyAdK/s1600/ara%C3%B1a-lobo-1.jpg", caption="Patrón ocular típico de Lycosidae")
 
 else:
     # Pregunta 2: Morfología
