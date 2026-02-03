@@ -95,6 +95,26 @@ else:
         else:
             st.info("Podría ser una araña de la familia Filistatidae o similar. Toma una foto para identificación avanzada.")
 
+st.write("---")
+st.header("🚦 Semáforo de Riesgo Arácnido")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.error("🔴 **PELIGRO**")
+    st.write("- Violinista\n- Viuda Negra")
+    st.caption("Importancia médica severa.")
+
+with col2:
+    st.warning("🟡 **PRECAUCIÓN**")
+    st.write("- Falsa Viuda\n- Araña de Saco")
+    st.caption("Mordedura dolorosa, riesgo bajo.")
+
+with col3:
+    st.success("🟢 **ALIADAS**")
+    st.write("- Saltarinas\n- Arañas Lobo")
+    st.caption("Inofensivas y controlan plagas.")
+
 # --- SECCIÓN DE PRIMEROS AUXILIOS ---
 st.divider()
 with st.expander("🆘 ¿Qué hacer en caso de mordedura? (Primeros Auxilios)"):
