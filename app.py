@@ -163,6 +163,13 @@ try:
 
 except Exception as e:
     st.warning("Conectando con la base de datos de Google Sheets...")
+
+# --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
+st.write("### 📢 ¿Encontraste un ejemplar?")
+st.write("Tu contribución es vital para el mapeo de la biodiversidad en Ensenada.")
+
+# Reemplaza el link entre comillas por el enlace de tu Google Form (el que dice "Enviar")
+st.link_button("➕ Registrar nuevo avistamiento", "https://docs.google.com/forms/d/e/1FAIpQLSfHzqHdiPBuMuCbPYQLda8Snhp2t_V0CBURI8L8d5t-2ZdoIA/viewform?usp=dialog")
     
 
 # --- SECCIÓN DE PRIMEROS AUXILIOS ---
