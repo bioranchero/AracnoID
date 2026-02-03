@@ -164,57 +164,6 @@ try:
 except Exception as e:
     st.warning("Conectando con la base de datos de Google Sheets...")
     
-# --- SECCIÓN DEL MAPA INTERACTIVO ---
-st.write("---")
-st.header("🗺️ Mapa de Avistamientos en Ensenada")
-st.write("Visualiza los reportes de la comunidad. Los colores indican el nivel de riesgo.")
-
-# Datos de ejemplo (Lat/Lon reales de zonas en Ensenada)
-# 1 = Peligro (Rojo), 2 = Precaución (Naranja), 3 = Inofensiva (Verde)
-data = pd.DataFrame({
-    'lat': [31.8667, 31.8501, 31.8820, 31.7333],
-    'lon': [-116.6000, -116.6500, -116.5900, -116.7167],
-    'especie': ['Araña Violinista', 'Salticidae', 'Viuda Negra', 'Araña Lobo'],
-    'riesgo': [1, 3, 1, 3],
-    'lugar': ['Zona Centro', 'Playa Hermosa', 'Valle de Guadalupe', 'La Bufadora']
-})
-
-# Crear el mapa centrado en Ensenada
-m = folium.Map(location=[31.8667, -116.6000], zoom_start=11)
-
-# ... (Carga de datos arriba)
-
-    # 1. Recorremos las filas de tu Google Form
-    for i, row in df.iterrows():
-        # Lógica de colores y calaveras (Sincronizado con tu Semáforo)
-        riesgo_valor = str(row['riesgo']).strip()
-        
-        if riesgo_valor == "Peligro":
-            color_final = 'red'
-            icono_final = 'skull'
-            prefijo = 'fa'
-        elif riesgo_valor == "Precaución":
-            color_final = 'orange'
-            icono_final = 'warning'
-            prefijo = 'fa'
-        else:
-            color_final = 'green'
-            icono_final = 'leaf'
-            prefijo = 'glyphicon'
-        
-        # ESTA ES LA LÍNEA 155: Asegúrate que esté alineada con el 'if' de arriba
-        folium.Marker(
-            location=[row['lat'], row['lon']],
-            popup=f"<b>{row['especie']}</b><br>Riesgo: {riesgo_valor}",
-            icon=folium.Icon(color=color_final, icon=icono_final, prefix=prefijo),
-            tooltip=f"Ver {row['especie']}"
-        ).add_to(m)
-
-    # 2. Mostramos el mapa (fuera del ciclo 'for')
-    st_folium(m, width=700, height=450)
-
-except Exception as e:
-    st.info("Sincronizando avistamientos desde Ensenada...")
 
 # --- SECCIÓN DE PRIMEROS AUXILIOS ---
 st.divider()
