@@ -182,19 +182,39 @@ data = pd.DataFrame({
 # Crear el mapa centrado en Ensenada
 m = folium.Map(location=[31.8667, -116.6000], zoom_start=11)
 
-# Añadir los marcadores con colores según el riesgo
-for i, row in data.iterrows():
-    color = 'red' if row['riesgo'] == 1 else 'green'
-    
-    folium.Marker(
-        location=[row['lat'], row['lon']],
-        popup=f"<b>{row['especie']}</b><br>📍 {row['lugar']}",
-        icon=folium.Icon(color=color, icon='info-sign'),
-        tooltip="Ver detalle"
-    ).add_to(m)
+# ... (Carga de datos arriba)
 
-# Renderizar el mapa
-st_folium(m, width=700, height=450)
+    # 1. Recorremos las filas de tu Google Form
+    for i, row in df.iterrows():
+        # Lógica de colores y calaveras (Sincronizado con tu Semáforo)
+        riesgo_valor = str(row['riesgo']).strip()
+        
+        if riesgo_valor == "Peligro":
+            color_final = 'red'
+            icono_final = 'skull'
+            prefijo = 'fa'
+        elif riesgo_valor == "Precaución":
+            color_final = 'orange'
+            icono_final = 'warning'
+            prefijo = 'fa'
+        else:
+            color_final = 'green'
+            icono_final = 'leaf'
+            prefijo = 'glyphicon'
+        
+        # ESTA ES LA LÍNEA 155: Asegúrate que esté alineada con el 'if' de arriba
+        folium.Marker(
+            location=[row['lat'], row['lon']],
+            popup=f"<b>{row['especie']}</b><br>Riesgo: {riesgo_valor}",
+            icon=folium.Icon(color=color_final, icon=icono_final, prefix=prefijo),
+            tooltip=f"Ver {row['especie']}"
+        ).add_to(m)
+
+    # 2. Mostramos el mapa (fuera del ciclo 'for')
+    st_folium(m, width=700, height=450)
+
+except Exception as e:
+    st.info("Sincronizando avistamientos desde Ensenada...")
 
 # --- SECCIÓN DE PRIMEROS AUXILIOS ---
 st.divider()
