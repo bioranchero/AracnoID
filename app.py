@@ -1,4 +1,7 @@
 import streamlit as st
+import folium
+from streamlit_folium import st_folium
+import pandas as pd
 
 # Configuración de la página
 st.set_page_config(
@@ -114,6 +117,38 @@ with col3:
     st.success("🟢 **ALIADAS**")
     st.write("- Saltarinas\n- Arañas Lobo")
     st.caption("Inofensivas y controlan plagas.")
+
+# --- SECCIÓN DEL MAPA INTERACTIVO ---
+st.write("---")
+st.header("🗺️ Mapa de Avistamientos en Ensenada")
+st.write("Visualiza los reportes de la comunidad. Los colores indican el nivel de riesgo.")
+
+# Datos de ejemplo (Lat/Lon reales de zonas en Ensenada)
+# 1 = Peligro (Rojo), 2 = Precaución (Naranja), 3 = Inofensiva (Verde)
+data = pd.DataFrame({
+    'lat': [31.8667, 31.8501, 31.8820, 31.7333],
+    'lon': [-116.6000, -116.6500, -116.5900, -116.7167],
+    'especie': ['Araña Violinista', 'Salticidae', 'Viuda Negra', 'Araña Lobo'],
+    'riesgo': [1, 3, 1, 3],
+    'lugar': ['Zona Centro', 'Playa Hermosa', 'Valle de Guadalupe', 'La Bufadora']
+})
+
+# Crear el mapa centrado en Ensenada
+m = folium.Map(location=[31.8667, -116.6000], zoom_start=11)
+
+# Añadir los marcadores con colores según el riesgo
+for i, row in data.iterrows():
+    color = 'red' if row['riesgo'] == 1 else 'green'
+    
+    folium.Marker(
+        location=[row['lat'], row['lon']],
+        popup=f"<b>{row['especie']}</b><br>📍 {row['lugar']}",
+        icon=folium.Icon(color=color, icon='info-sign'),
+        tooltip="Ver detalle"
+    ).add_to(m)
+
+# Renderizar el mapa
+st_folium(m, width=700, height=450)
 
 # --- SECCIÓN DE PRIMEROS AUXILIOS ---
 st.divider()
