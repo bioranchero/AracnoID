@@ -152,7 +152,7 @@ try:
             icono_final = 'leaf'
             prefijo = 'glyphicon'
         
-       folium.Marker(
+    folium.Marker(
             location=[row['lat'], row['lon']],
             popup=f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}",
             icon=folium.Icon(color=color_final, icon=icono_final, prefix=prefijo),
