@@ -118,41 +118,46 @@ with col3:
     st.write("- Saltarinas\n- Arañas Lobo")
     st.caption("Inofensivas y controlan plagas.")
 
-# --- CONEXIÓN A LOS DATOS ---
-# Sustituye 'TU_ID_DE_HOJA' por el código que copiaste de tu Google Sheet
+# --- CONFIGURACIÓN DE DATOS ---
+# Recuerda cambiar 'TU_ID_AQUÍ' por el ID de tu hoja de Google
 SHEET_ID = '1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg'
-SHEET_NAME = 'Hoja1' # O el nombre que tenga tu pestaña
-url = f'https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/edit?usp=sharing'
-
-def load_data():
-    return pd.read_csv(url)
+url = f'https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/gviz/tq?tqx=out:csv'
 
 st.write("---")
-st.header("🗺️ Mapa de Avistamientos en Tiempo Real")
-st.write("Este mapa se actualiza automáticamente con los reportes de la comunidad.")
+st.header("🗺️ Mapa de Avistamientos (Sincronizado)")
+st.info("Los colores de los pines coinciden con nuestro semáforo de riesgo biológico.")
 
 try:
-    df = load_data()
+    df = pd.read_csv(url)
 
-    # Crear el mapa centrado en Ensenada
-    m = folium.Map(location=[31.8667, -116.6000], zoom_start=11)
+    # Centro el mapa en las coordenadas de tu primer registro en Ensenada
+    m = folium.Map(location=[31.8663, -116.6679], zoom_start=12)
 
-    # Añadir marcadores desde la Google Sheet
     for i, row in df.iterrows():
-        # Asignar color según riesgo (1=Peligro/Rojo, 3=Inofensiva/Verde)
-        color_marker = 'red' if row['riesgo'] == 1 else 'green'
+        # Lógica de colores del semáforo
+        riesgo_texto = str(row['riesgo']).strip().capitalize()
+        
+        if riesgo_texto == "Peligro":
+            color_final = 'red'
+            icono = 'exclamation-sign'
+        elif riesgo_texto == "Precaución":
+            color_final = 'orange'
+            icono = 'warning-sign'
+        else: # Inofensiva
+            color_final = 'green'
+            icono = 'leaf'
         
         folium.Marker(
             location=[row['lat'], row['lon']],
-            popup=f"<b>{row['especie']}</b><br>📍 {row['lugar']}",
-            icon=folium.Icon(color=color_marker, icon='info-sign')
+            popup=f"<b>{row['especie']}</b><br>Nivel: {riesgo_texto}<br>📍 {row['lugar']}",
+            icon=folium.Icon(color=color_final, icon=icono),
+            tooltip=f"Ver {row['especie']}"
         ).add_to(m)
 
-    # Mostrar mapa
     st_folium(m, width=700, height=450)
 
 except Exception as e:
-    st.error("Aún no hay datos suficientes para mostrar el mapa o el enlace es incorrecto.")
+    st.warning("Conectando con la base de datos de Google Sheets...")
     
 # --- SECCIÓN DEL MAPA INTERACTIVO ---
 st.write("---")
