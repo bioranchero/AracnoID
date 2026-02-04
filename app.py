@@ -93,7 +93,6 @@ if patas == "No":
     # Todo lo que esté aquí solo se ve si eligen "No"
     st.info("¡Entonces no es una araña! 🕷️ Tal vez sea un insecto.")
     # No pongas nada más aquí. Al terminar este bloque, la app no hará nada más.
-
 else:
     # --- TODO ESTO LLEVA SANGRÍA (4 espacios) ---
     # Al estar aquí adentro, Python NO leerá estas líneas si el usuario marcó "No"
