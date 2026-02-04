@@ -180,7 +180,7 @@ try:
     # Creamos un grupo para meter todos los puntos
     puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
-    for i, row in df.iterrows():
+for i, row in df.iterrows():
         # Lógica de colores e iconos (la que ya tienes)
         riesgo_valor = str(row['riesgo']).strip()
         color_f = 'red' if riesgo_valor == "Peligro" else 'orange' if riesgo_valor == "Precaución" else 'green'
