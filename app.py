@@ -193,32 +193,23 @@ try:
     puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
     # TODO ESTO DEBE ESTAR IDENTADO DENTRO DEL FOR
+    # REVISAR: Esta parte debe estar dentro de tu bloque 'try'
     for i, row in df.iterrows():
-        # 1. Lógica de colores e iconos
-        riesgo_valor = str(row['riesgo']).strip()
-        color_f = 'red' if riesgo_valor == "Peligro" else 'orange' if riesgo_valor == "Precaución" else 'green'
-        icon_f = 'skull' if riesgo_valor == "Peligro" else 'warning' if riesgo_valor == "Precaución" else 'paw'
+        # Estas líneas deben tener 8 espacios de sangría
+        riesgo_v = str(row['riesgo']).strip()
+        url_foto = transformar_link_drive(str(row.get('foto', '')))
         
-        # 2. LÓGICA DE LA IMAGEN (CORREGIDA)
-        url_cruda = str(row.get('foto', '')) # Usamos .get por si la columna no existe
-        url_foto = transformar_link_drive(url_cruda)
-        
+        # Preparamos el contenido de la ventanita
         if "http" in url_foto:
-            html_popup = f"""
-                <div style="width: 200px;">
-                    <b>{row['especie']}</b><br>
-                    <img src="{url_foto}" style="width:100%; border-radius:5px; margin-top:8px;">
-                </div>
-            """
+            popup_html = f"<b>{row['especie']}</b><br><img src='{url_foto}' width='180'>"
         else:
-            html_popup = f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}"
+            popup_html = f"<b>{row['especie']}</b>"
 
-        # 3. Añadimos el marcador
+        # El marcador también debe estar alineado aquí
         folium.Marker(
             location=[row['lat'], row['lon']],
-            popup=folium.Popup(html_popup, max_width=250),
-            icon=folium.Icon(color=color_f, icon=icon_f, prefix='fa'),
-            tooltip=f"Ver {row['especie']}"
+            popup=folium.Popup(popup_html, max_width=200),
+            icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
         ).add_to(puntos_registro)
 
     puntos_registro.add_to(m)
