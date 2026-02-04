@@ -31,6 +31,40 @@ st.title("🕷️ AracnoID")
 st.subheader("Guía interactiva de aracnofauna local")
 st.write("Herramienta desarrollada para el estudio y divulgación de los arácnidos en Baja California.")
 
+# 1. Definir las pestañas en la parte superior
+tab_app, tab_sobre, tab_contacto = st.tabs(["🕷️ Identificador", "👨‍🔬 Sobre Mí", "📧 Contacto"])
+
+with tab_app:
+    # AQUÍ PEGAS TODO TU CÓDIGO ACTUAL (Título, Identificador, Mapa, FAQ, etc.)
+    st.write("Bienvenido a AracnoID")
+
+with tab_sobre:
+    st.header("Sobre el Proyecto y Autor")
+    st.markdown("""
+    ¡Hola! Soy un estudiante de **Biología** apasionado por la aracnología y la tecnología aplicada a la naturaleza.
+    
+    **AracnoID** nació con el objetivo de:
+    * Mapear la biodiversidad de arácnidos en la región de Baja California.
+    * Educar a la comunidad para evitar la muerte innecesaria de especies inofensivas.
+    * Proporcionar una herramienta de respuesta rápida ante especies de importancia médica.
+    """)
+    # Puedes añadir una foto tuya aquí si quieres
+    # st.image("tu_foto.jpg", width=200)
+
+with tab_contacto:
+    st.header("📬 Contacto")
+    st.write("Si tienes dudas, quieres colaborar con fotos o reportar un error, puedes encontrarme en:")
+    
+    col_c1, col_c2 = st.columns(2)
+    with col_c1:
+        st.write("### Redes Sociales")
+        st.write("[TikTok](https://www.tiktok.com/bioranchero)")
+        st.write("[YouTube](https://www.youtube.com/bioranchero)")
+    
+    with col_c2:
+        st.write("### Colaboración Académica")
+        st.write("Si eres investigador o institución, envíame un mensaje para acceder a la base de datos completa de avistamientos.")
+
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
 st.sidebar.info("""
