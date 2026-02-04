@@ -83,12 +83,21 @@ else:
         mancha = st.radio("3. ¿Tiene una mancha roja o naranja brillante en el vientre?", ("No", "Sí"))
         
         if mancha == "Sí":
-            st.error("### Género: **Latrodectus** (Viuda Negra)")
-            st.warning("⚠️ **IMPORTANCIA MÉDICA:** Su veneno es neurotóxico. No manipular y acudir al médico en caso de mordedura.")
+            # NUEVA PREGUNTA DE COLOR
+            color_viuda = st.radio("4. ¿De qué color es el cuerpo principalmente?", ("Negro brillante", "Café o pardo con dibujos"))
+            
+            if color_viuda == "Negro brillante":
+                st.error("### Género: **Latrodectus** (Viuda Negra)")
+                st.warning("⚠️ **IMPORTANCIA MÉDICA:** Su veneno es neurotóxico. No manipular y acudir al médico en caso de mordedura.")
+                st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Latrodectus_hesperus_01.jpg/320px-Latrodectus_hesperus_01.jpg", caption="Latrodectus hesperus (Viuda Negra del Oeste)")
+            else:
+                st.warning("### Género: **Latrodectus** (Viuda Café)")
+                st.write("**Descripción:** Es una especie introducida muy común en zonas urbanas de Ensenada. Aunque es de importancia médica, suele ser menos defensiva que la negra.")
+                st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Latrodectus_geometricus_area.jpg/320px-Latrodectus_geometricus_area.jpg", caption="Latrodectus geometricus (Viuda Café)")
+        
         else:
             st.success("### Género: **Steatoda** (Falsa Viuda)")
-            st.write("**Descripción:** Muy comunes en casas de Ensenada. Se parecen a la viuda negra pero carecen del reloj de arena rojo. Su mordedura es similar a una picadura de avispa.")
-
+            st.write("**Descripción:** Muy comunes en casas. Se parecen a la viuda negra pero carecen del reloj de arena rojo.")
     elif forma == "Aplanado con una marca oscura en el frente":
         violin = st.radio("3. ¿Ves una mancha clara en forma de violín en el cefalotórax?", ("No estoy seguro", "Sí, se ve clara"))
         
