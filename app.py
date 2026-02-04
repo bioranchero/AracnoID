@@ -189,51 +189,43 @@ st.info("Los colores de los pines coinciden con nuestro semáforo de riesgo biol
 # --- MAPA QUE ACUMULA TODOS LOS REGISTROS ---
 try:
     df = pd.read_csv(url)
-
-    # Creamos el mapa centrado en Ensenada
     m = folium.Map(location=[31.8663, -116.6679], zoom_start=11)
-    
-    # Creamos un grupo para meter todos los puntos
     puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
+    # TODO ESTO DEBE ESTAR IDENTADO DENTRO DEL FOR
     for i, row in df.iterrows():
-        # Lógica de colores e iconos (la que ya tienes)
+        # 1. Lógica de colores e iconos
         riesgo_valor = str(row['riesgo']).strip()
         color_f = 'red' if riesgo_valor == "Peligro" else 'orange' if riesgo_valor == "Precaución" else 'green'
         icon_f = 'skull' if riesgo_valor == "Peligro" else 'warning' if riesgo_valor == "Precaución" else 'paw'
         
-        # --- LÓGICA DE LA IMAGEN ---
-        # Creamos el HTML para el popup. Si hay foto, la mostramos; si no, solo texto.
-        url_foto = row['foto'] # Asegúrate que el nombre coincida con tu Google Sheet
+        # 2. LÓGICA DE LA IMAGEN (CORREGIDA)
+        url_cruda = str(row.get('foto', '')) # Usamos .get por si la columna no existe
+        url_foto = transformar_link_drive(url_cruda)
         
-        if pd.notna(url_foto) and "http" in str(url_foto):
-            # Formateamos el HTML para que la imagen no sea gigante
+        if "http" in url_foto:
             html_popup = f"""
-            <div style="width: 200px;">
-                <b>Especie:</b> {row['especie']}<br>
-                <b>Riesgo:</b> {riesgo_valor}<br>
-                <img src="{url_foto}" alt="Foto del usuario" style="width:100%; border-radius:5px; margin-top:10px;">
-            </div>
+                <div style="width: 200px;">
+                    <b>{row['especie']}</b><br>
+                    <img src="{url_foto}" style="width:100%; border-radius:5px; margin-top:8px;">
+                </div>
             """
         else:
             html_popup = f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}"
 
-        # Añadimos el marcador con el popup de imagen
+        # 3. Añadimos el marcador
         folium.Marker(
             location=[row['lat'], row['lon']],
             popup=folium.Popup(html_popup, max_width=250),
             icon=folium.Icon(color=color_f, icon=icon_f, prefix='fa'),
-            tooltip="Ver foto y detalles"
+            tooltip=f"Ver {row['especie']}"
         ).add_to(puntos_registro)
 
-    # Agregamos el grupo completo al mapa
     puntos_registro.add_to(m)
-
-    # Mostramos el mapa
     st_folium(m, width=700, height=450)
 
 except Exception as e:
-    st.warning("Sincronizando base de datos...")
+    st.error(f"Error al cargar el mapa: {e}")
 
 # --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
 st.write("### 📢 ¿Encontraste un ejemplar?")
