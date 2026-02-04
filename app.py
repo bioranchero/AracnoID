@@ -194,26 +194,27 @@ try:
 
     # TODO ESTO DEBE ESTAR IDENTADO DENTRO DEL FOR
     # REVISAR: Esta parte debe estar dentro de tu bloque 'try'
-    for i, row in df.iterrows():
-        # Estas líneas deben tener 8 espacios de sangría
-        riesgo_v = str(row['riesgo']).strip()
-        url_foto = transformar_link_drive(str(row.get('foto', '')))
-        
-        # Preparamos el contenido de la ventanita
-        if "http" in url_foto:
-            popup_html = f"<b>{row['especie']}</b><br><img src='{url_foto}' width='180'>"
-        else:
-            popup_html = f"<b>{row['especie']}</b>"
+    # ... (Código de carga de datos arriba)
 
-        # El marcador también debe estar alineado aquí
-        folium.Marker(
-            location=[row['lat'], row['lon']],
-            popup=folium.Popup(popup_html, max_width=200),
-            icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
-        ).add_to(puntos_registro)
+# 1. Iniciamos el ciclo (AQUÍ se crea la variable 'row')
+for i, row in df.iterrows():
+    
+    # 2. TODO esto debe tener sangría (4 o 8 espacios a la derecha)
+    # Si la línea de abajo está pegada a la izquierda, dará NameError
+    url_cruda = str(row.get('foto', '')) 
+    url_foto = transformar_link_drive(url_cruda)
+    
+    riesgo_v = str(row['riesgo']).strip()
+    
+    # Preparamos el marcador
+    folium.Marker(
+        location=[row['lat'], row['lon']],
+        popup=f"<b>{row['especie']}</b>",
+        # ... resto del código del marcador
+    ).add_to(puntos_registro)
 
-    puntos_registro.add_to(m)
-    st_folium(m, width=700, height=450)
+# 3. El mapa se muestra FUERA del for (alineado con la palabra 'for')
+st_folium(m, width=700, height=450)
 
 except Exception as e:
     st.error(f"Error al cargar el mapa: {e}")
