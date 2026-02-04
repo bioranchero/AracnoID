@@ -86,6 +86,17 @@ st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https
 st.header("🔍 Identificador Rápido")
 st.write("Responde según lo que observes en el ejemplar:")
 
+# --- LA PREGUNTA "BROMA" PARA DESPLEGAR EL RESTO ---
+patas = st.radio("Para empezar, ¿tiene ocho patas?", ("No", "Sí"))
+
+if patas == "No":
+    st.info("¡Entonces no es una araña! 🕷️ Tal vez sea un insecto o un amigo de otra especie.")
+    # Si la respuesta es No, el código se detiene aquí para esta sección.
+
+else:
+    # SI RESPONDE "SÍ", SE DESPLEGAN LAS DEMÁS PREGUNTAS
+    st.success("¡Perfecto! Iniciemos el registro científico. 🔬")
+
 # Pregunta 1: Los ojos (Base científica)
 ojos = st.radio(
     "1. ¿Cómo son los ojos de la araña?",
