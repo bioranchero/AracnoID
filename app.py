@@ -10,6 +10,13 @@ password_correcta = "aracno2026"
 st.sidebar.title("Seguridad")
 acceso = st.sidebar.text_input("Introduce la contraseña:", type="password")
 
+# Configuración de la página
+st.set_page_config(
+    page_title="AracnoID | Biología",
+    page_icon="🕷️",
+    layout="centered"
+)
+
 if acceso == password_correcta:
     st.sidebar.success("Acceso concedido ✅")
     # Si quieres, puedes poner un mensaje de bienvenida aquí
