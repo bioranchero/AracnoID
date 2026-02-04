@@ -186,18 +186,6 @@ st.write("---")
 st.header("🗺️ Mapa de Avistamientos (Tiempo Real)")
 st.info("Los colores de los pines coinciden con nuestro semáforo de riesgo biológico.")
 
-# --- MAPA QUE ACUMULA TODOS LOS REGISTROS ---
-try:
-    df = pd.read_csv(url)
-    m = folium.Map(location=[31.8663, -116.6679], zoom_start=11)
-    puntos_registro = folium.FeatureGroup(name="Avistamientos")
-
-    # TODO ESTO DEBE ESTAR IDENTADO DENTRO DEL FOR
-    # REVISAR: Esta parte debe estar dentro de tu bloque 'try'
-    # ... (Código de carga de datos arriba)
-
-# 1. Iniciamos el ciclo (AQUÍ se crea la variable 'row')
-# --- SECCIÓN DEL MAPA (CON ESTRUCTURA CORRECTA) ---
 # --- INICIO DEL BLOQUE DEL MAPA ---
 try: # Línea 201 (Abre el bloque)
     # 1. Carga de datos
