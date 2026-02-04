@@ -3,19 +3,27 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 
-# 1. Al inicio de tu archivo
+# 1. Configuración de seguridad
 password_correcta = "aracno2026"
+
+# Usamos la barra lateral para que no estorbe en el diseño principal
+st.sidebar.title("Seguridad")
 acceso = st.sidebar.text_input("Introduce la contraseña:", type="password")
 
 if acceso == password_correcta:
-    # --- TODO LO QUE SIGUE DEBE TENER 4 ESPACIOS DE SANGRÍA ---
-    st.sidebar.success("Acceso concedido")
-    st.title("🕷️ AracnoID")
-
+    st.sidebar.success("Acceso concedido ✅")
+    # Si quieres, puedes poner un mensaje de bienvenida aquí
+    st.balloons() # Un pequeño efecto visual al entrar
 else:
-    # Este bloque se ejecuta si la contraseña está vacía o es incorrecta
-    st.warning("🔒 Contraseña requerida")
-    st.info("Por favor, ingresa la clave en la barra lateral para acceder a los datos biológicos de Ensenada.")
+    if acceso == "":
+        st.warning("🔒 Contraseña requerida")
+        st.info("Ingresa la clave en la barra lateral para acceder a la base de datos biológica.")
+    else:
+        st.error("❌ Contraseña incorrecta")
+    
+    # ESTA LÍNEA ES LA MÁS IMPORTANTE:
+    st.stop() 
+
     
 # Configuración de la página
 st.set_page_config(
