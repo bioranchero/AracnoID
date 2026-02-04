@@ -86,15 +86,17 @@ st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https
 st.header("🔍 Identificador Rápido")
 st.write("Responde según lo que observes en el ejemplar:")
 
-# --- LA PREGUNTA "BROMA" PARA DESPLEGAR EL RESTO ---
+# 1. La pregunta "broma" o filtro inicial
 patas = st.radio("Para empezar, ¿tiene ocho patas?", ("No", "Sí"))
 
 if patas == "No":
-    st.info("¡Entonces no es una araña! 🕷️ Tal vez sea un insecto o un amigo de otra especie.")
-    # Si la respuesta es No, el código se detiene aquí para esta sección.
+    # Todo lo que esté aquí solo se ve si eligen "No"
+    st.info("¡Entonces no es una araña! 🕷️ Tal vez sea un insecto.")
+    # No pongas nada más aquí. Al terminar este bloque, la app no hará nada más.
 
 else:
-    # SI RESPONDE "SÍ", SE DESPLEGAN LAS DEMÁS PREGUNTAS
+    # --- TODO ESTO LLEVA SANGRÍA (4 espacios) ---
+    # Al estar aquí adentro, Python NO leerá estas líneas si el usuario marcó "No"
     st.success("¡Perfecto! Iniciemos el registro científico. 🔬")
     
     # 1. Pregunta de los ojos
