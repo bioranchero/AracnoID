@@ -127,42 +127,43 @@ st.write("---")
 st.header("🗺️ Mapa de Avistamientos (Tiempo Real)")
 st.info("Los colores de los pines coinciden con nuestro semáforo de riesgo biológico.")
 
+# --- MAPA QUE ACUMULA TODOS LOS REGISTROS ---
 try:
     df = pd.read_csv(url)
 
-    # Centro el mapa en las coordenadas de tu primer registro en Ensenada
-    m = folium.Map(location=[31.8663, -116.6679], zoom_start=12)
+    # Creamos el mapa centrado en Ensenada
+    m = folium.Map(location=[31.8663, -116.6679], zoom_start=11)
+    
+    # Creamos un grupo para meter todos los puntos
+    puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
-  # Recorremos las filas de tu Google Form
     for i, row in df.iterrows():
-        # Lógica de colores y calaveras basada en tu columna 'riesgo'
-        # Usamos .get() por si acaso una celda está vacía
+        # Lógica de colores del semáforo
         riesgo_valor = str(row['riesgo']).strip()
         
         if riesgo_valor == "Peligro":
-            color_final = 'red'
-            icono_final = 'skull'
-            prefijo = 'fa'
+            color_f = 'red'; icon_f = 'skull'; pref = 'fa'
         elif riesgo_valor == "Precaución":
-            color_final = 'orange'
-            icono_final = 'warning'
-            prefijo = 'fa'
+            color_f = 'orange'; icon_f = 'warning'; pref = 'fa'
         else:
-            color_final = 'green'
-            icono_final = 'leaf'
-            prefijo = 'glyphicon'
+            color_f = 'green'; icon_f = 'leaf'; pref = 'glyphicon'
         
-    folium.Marker(
+        # Añadimos cada marcador al grupo
+        folium.Marker(
             location=[row['lat'], row['lon']],
             popup=f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}",
-            icon=folium.Icon(color=color_final, icon=icono_final, prefix=prefijo),
-            tooltip="Click para ver detalle"
-        ).add_to(m)
+            icon=folium.Icon(color=color_f, icon=icon_f, prefix=pref),
+            tooltip=f"Ver {row['especie']}"
+        ).add_to(puntos_registro)
 
+    # Agregamos el grupo completo al mapa
+    puntos_registro.add_to(m)
+
+    # Mostramos el mapa
     st_folium(m, width=700, height=450)
 
 except Exception as e:
-    st.warning("Conectando con la base de datos de Google Sheets...")
+    st.warning("Sincronizando base de datos...")
 
 # --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
 st.write("### 📢 ¿Encontraste un ejemplar?")
