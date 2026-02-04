@@ -114,7 +114,7 @@ else:
         st.write("Suelen estar en el suelo; su veneno no es de importancia médica.")
         st.image("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgATtVEMeXZa0J-5sgTIyI5wMswVEbBY2G9C4vZ0DAHM1NuHvwQqov9Hp07WloxygvOq3Axj4OUhc39A2B5ajYNZjbvA-Pd2dUQJXJvJP57Bms4GcHj7SCyzK3sBLs1VWomSXpOZaDpyAdK/s1600/ara%C3%B1a-lobo-1.jpg")
 
-else:
+    else:
     # Pregunta 2: Morfología
     forma = st.radio(
         "2. ¿Qué forma tiene el cuerpo?",
