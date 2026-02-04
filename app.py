@@ -104,6 +104,7 @@ else:
     )
 
     # ESTOS 'IF' AHORA ESTÁN DENTRO DEL 'ELSE' (con sangría extra)
+else:
     if ojos == "Tiene dos ojos centrales MUY grandes (como faros)":
         st.success("### Familia: Salticidae (Arañas Saltarinas)")
         st.write("Son inofensivas y excelentes controladoras de plagas.")
