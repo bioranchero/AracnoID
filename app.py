@@ -2,6 +2,18 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+def transformar_link_drive(url):
+    """Convierte un link de visualización de Drive en un link directo para imágenes."""
+    if "drive.google.com" in url:
+        # Extrae el ID del archivo y crea el link de exportación directa
+        file_id = url.split('/')[-2] if 'view' in url else url.split('id=')[-1]
+        return f"https://drive.google.com/uc?export=view&id={1Xu0sDV-MjcXQcj6kUCxLZ2dkAPFvTmZ46MjMpLSiUa_jzdGciwpxWZbmlXXR2Q5bsm_8wjSt}"
+    return url
+
+# --- DENTRO DE TU FOR PARA EL MAPA ---
+url_cruda = row['foto']
+# Usamos la función para que la imagen sí cargue en el popup
+url_foto = transformar_link_drive(str(url_cruda))
 
 # Configuración de la página
 st.set_page_config(
