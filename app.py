@@ -91,7 +91,6 @@ patas = st.radio("Para empezar, ¿tiene ocho patas?", ("No", "Sí"))
 
 if patas == "No":
     st.info("¡Entonces no es una araña! 🕷️ Tal vez sea un insecto.")
-
 else:
     # --- A PARTIR DE AQUÍ, TODO LLEVA 4 ESPACIOS DE SANGRÍA ---
     st.success("¡Perfecto! Iniciemos el registro científico. 🔬")
