@@ -189,7 +189,7 @@ try:
             icon_f = 'warning'
         else:
             color_f = 'green'
-            icon_f = 'paw' # O 'microscope' para tu perfil de biología
+            icon_f = 'heart' # O 'microscope' para tu perfil de biología
 
         # El marcador con la lógica aplicada
         folium.Marker(
