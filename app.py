@@ -180,12 +180,22 @@ try:
     # 2. Ciclo de registros
     for i, row in df.iterrows():
         riesgo_v = str(row['riesgo']).strip()
-        
-        # El marcador está ADENTRO del for (con sangría)
+      # Definir color e icono según el riesgo
+        if riesgo_v == "Peligro":
+            color_f = 'red'
+            icon_f = 'skull'
+        elif riesgo_v == "Precaución":
+            color_f = 'orange'
+            icon_f = 'warning'
+        else:
+            color_f = 'green'
+            icon_f = 'paw' # O 'microscope' para tu perfil de biología
+
+        # El marcador con la lógica aplicada
         folium.Marker(
             location=[row['lat'], row['lon']],
-            popup=f"<b>{row['especie']}</b>",
-            icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
+            popup=f"<b>{row['especie']}</b><br>Riesgo: {riesgo_v}",
+            icon=folium.Icon(color=color_f, icon=icon_f, prefix='fa')
         ).add_to(puntos_registro)
 
     # 3. Estas líneas van AFUERA del for (alineadas con la palabra 'for')
