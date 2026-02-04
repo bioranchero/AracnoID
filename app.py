@@ -90,12 +90,10 @@ st.write("Responde según lo que observes en el ejemplar:")
 patas = st.radio("Para empezar, ¿tiene ocho patas?", ("No", "Sí"))
 
 if patas == "No":
-    # Todo lo que esté aquí solo se ve si eligen "No"
     st.info("¡Entonces no es una araña! 🕷️ Tal vez sea un insecto.")
-    # No pongas nada más aquí. Al terminar este bloque, la app no hará nada más.
+
 else:
-    # --- TODO ESTO LLEVA SANGRÍA (4 espacios) ---
-    # Al estar aquí adentro, Python NO leerá estas líneas si el usuario marcó "No"
+    # --- A PARTIR DE AQUÍ, TODO LLEVA 4 ESPACIOS DE SANGRÍA ---
     st.success("¡Perfecto! Iniciemos el registro científico. 🔬")
     
     # 1. Pregunta de los ojos
@@ -106,15 +104,16 @@ else:
          "Tiene dos ojos grandes arriba y cuatro pequeños abajo en fila")
     )
 
-if ojos == "Tiene dos ojos centrales MUY grandes (como faros)":
-    st.success("### Familia: **Salticidae** (Arañas Saltarinas)")
-    st.write("**Descripción:** Son arañas cazadoras activas con excelente visión. Son totalmente inofensivas para los humanos y ayudan a controlar plagas.")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Salticidae_eyes.jpg/320px-Salticidae_eyes.jpg", caption="Patrón ocular típico de Salticidae")
+    # ESTOS 'IF' AHORA ESTÁN DENTRO DEL 'ELSE' (con sangría extra)
+    if ojos == "Tiene dos ojos centrales MUY grandes (como faros)":
+        st.success("### Familia: Salticidae (Arañas Saltarinas)")
+        st.write("Son inofensivas y excelentes controladoras de plagas.")
+        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Salticidae_eyes.jpg/320px-Salticidae_eyes.jpg")
 
-elif ojos == "Tiene dos ojos grandes arriba y cuatro pequeños abajo en fila":
-    st.success("### Familia: **Lycosidae** (Arañas Lobo)")
-    st.write("**Descripción:** No tejen telas circulares, suelen estar en el suelo. Aunque impresionan por su tamaño, su veneno no es de importancia médica.")
-    st.image("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgATtVEMeXZa0J-5sgTIyI5wMswVEbBY2G9C4vZ0DAHM1NuHvwQqov9Hp07WloxygvOq3Axj4OUhc39A2B5ajYNZjbvA-Pd2dUQJXJvJP57Bms4GcHj7SCyzK3sBLs1VWomSXpOZaDpyAdK/s1600/ara%C3%B1a-lobo-1.jpg", caption="Patrón ocular típico de Lycosidae")
+    elif ojos == "Tiene dos ojos grandes arriba y cuatro pequeños abajo en fila":
+        st.success("### Familia: Lycosidae (Arañas Lobo)")
+        st.write("Suelen estar en el suelo; su veneno no es de importancia médica.")
+        st.image("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgATtVEMeXZa0J-5sgTIyI5wMswVEbBY2G9C4vZ0DAHM1NuHvwQqov9Hp07WloxygvOq3Axj4OUhc39A2B5ajYNZjbvA-Pd2dUQJXJvJP57Bms4GcHj7SCyzK3sBLs1VWomSXpOZaDpyAdK/s1600/ara%C3%B1a-lobo-1.jpg")
 
 else:
     # Pregunta 2: Morfología
