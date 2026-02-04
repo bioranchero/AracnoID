@@ -181,22 +181,33 @@ try:
     puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
     for i, row in df.iterrows():
-        # Lógica de colores del semáforo
+        # Lógica de colores e iconos (la que ya tienes)
         riesgo_valor = str(row['riesgo']).strip()
+        color_f = 'red' if riesgo_valor == "Peligro" else 'orange' if riesgo_valor == "Precaución" else 'green'
+        icon_f = 'skull' if riesgo_valor == "Peligro" else 'warning' if riesgo_valor == "Precaución" else 'paw'
         
-        if riesgo_valor == "Peligro":
-            color_f = 'red'; icon_f = 'skull'; pref = 'fa'
-        elif riesgo_valor == "Precaución":
-            color_f = 'orange'; icon_f = 'warning'; pref = 'fa'
+        # --- LÓGICA DE LA IMAGEN ---
+        # Creamos el HTML para el popup. Si hay foto, la mostramos; si no, solo texto.
+        url_foto = row['foto'] # Asegúrate que el nombre coincida con tu Google Sheet
+        
+        if pd.notna(url_foto) and "http" in str(url_foto):
+            # Formateamos el HTML para que la imagen no sea gigante
+            html_popup = f"""
+            <div style="width: 200px;">
+                <b>Especie:</b> {row['especie']}<br>
+                <b>Riesgo:</b> {riesgo_valor}<br>
+                <img src="{url_foto}" alt="Foto del usuario" style="width:100%; border-radius:5px; margin-top:10px;">
+            </div>
+            """
         else:
-            color_f = 'green'; icon_f = 'heart'; pref = 'glyphicon'
-        
-        # Añadimos cada marcador al grupo
+            html_popup = f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}"
+
+        # Añadimos el marcador con el popup de imagen
         folium.Marker(
             location=[row['lat'], row['lon']],
-            popup=f"<b>{row['especie']}</b><br>Nivel: {riesgo_valor}",
-            icon=folium.Icon(color=color_f, icon=icon_f, prefix=pref),
-            tooltip=f"Ver {row['especie']}"
+            popup=folium.Popup(html_popup, max_width=250),
+            icon=folium.Icon(color=color_f, icon=icon_f, prefix='fa'),
+            tooltip="Ver foto y detalles"
         ).add_to(puntos_registro)
 
     # Agregamos el grupo completo al mapa
