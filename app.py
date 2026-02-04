@@ -17,7 +17,7 @@ if acceso == password_correcta:
 else:
     if acceso == "":
         st.warning("🔒 Contraseña requerida")
-        st.info("Ingresa la clave en la barra lateral para acceder a la base de datos biológica.")
+        st.info("Ingresa la clave en la barra lateral para acceder a la base de datos.")
     else:
         st.error("❌ Contraseña incorrecta")
     
