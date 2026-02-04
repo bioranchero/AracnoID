@@ -185,6 +185,33 @@ with st.expander("🆘 ¿Qué hacer en caso de mordedura? (Primeros Auxilios)"):
     *En Ensenada, acude al Hospital General o al centro de salud más cercano si presentas síntomas graves.*
     """)
 
+st.write("---")
+st.header("🏥 Directorio de Emergencia (Ensenada)")
+st.warning("En caso de mordedura por una especie de **Importancia Médica**, acude de inmediato a estos centros. No esperes a que aparezcan los síntomas.")
+
+col_hosp1, col_hosp2 = st.columns(2)
+
+with col_hosp1:
+    st.markdown("""
+    **Hospital General de Ensenada** 📍 Av. Carretera Transpeninsular km 111  
+    📞 (646) 176-7600  
+    *Cuenta con antídotos (faboterápicos) para Viuda Negra y Violinista.*
+    """)
+
+with col_hosp2:
+    st.markdown("""
+    **IMSS Hospital General de Zona No. 8** 📍 Av. Reforma y Calle 11  
+    📞 (646) 172-4500  
+    *Servicio de urgencias disponible para derechohabientes.*
+    """)
+
+with st.expander("🚑 Otras unidades de apoyo"):
+    st.write("""
+    - **Cruz Roja Ensenada (Calle Moderna):** (646) 174-4585
+    - **ISSSTE Ensenada (Calle Cuarta):** (646) 178-3511
+    - **Número de Emergencia Nacional:** 911
+    """)
+    
 # --- SECCIÓN DE PREGUNTAS FRECUENTES ---
 st.divider()
 st.header("❓ Preguntas Frecuentes")
