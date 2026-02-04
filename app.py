@@ -179,21 +179,18 @@ try: # Línea 201 (Abre el bloque)
 
     # 2. Ciclo de registros
     for i, row in df.iterrows():
-            # Definimos variables DENTRO del for para que no den NameError
             riesgo_v = str(row['riesgo']).strip()
-            especie_n = str(row['especie'])
             
-            # Solo texto, sin imágenes por ahora
-            html_popup = f"<b>Especie:</b> {especie_n}<br><b>Riesgo:</b> {riesgo_v}"
-            
+            # El marcador tiene una sangría hacia adentro del 'for'
             folium.Marker(
                 location=[row['lat'], row['lon']],
-                popup=folium.Popup(html_popup, max_width=200),
+                popup=f"<b>{row['especie']}</b>",
                 icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
             ).add_to(puntos_registro)
 
-        puntos_registro.add_to(m)
-        st_folium(m, width=700, height=450)
+        # ESTA LÍNEA DEBE ESTAR ALINEADA CON EL 'FOR' DE ARRIBA
+    puntos_registro.add_to(m)
+    st_folium(m, width=700, height=450)
 
     except Exception as e:
         st.warning("Sincronizando base de datos local...")
