@@ -3,12 +3,19 @@ import folium
 from streamlit_folium import st_folium
 import pandas as pd
 
-# --- SISTEMA DE ACCESO ---
-password_correcta = "aracno2026" # <--- Cambia esto por la clave que quieras
-acceso = st.sidebar.text_input("Introduce la contraseña para acceder:", type="password")
+# 1. Al inicio de tu archivo
+password_correcta = "aracno2026"
+acceso = st.sidebar.text_input("Introduce la contraseña:", type="password")
 
 if acceso == password_correcta:
+    # --- TODO LO QUE SIGUE DEBE TENER 4 ESPACIOS DE SANGRÍA ---
     st.sidebar.success("Acceso concedido")
+    st.title("🕷️ AracnoID")
+
+else:
+    # Este bloque se ejecuta si la contraseña está vacía o es incorrecta
+    st.warning("🔒 Contraseña requerida")
+    st.info("Por favor, ingresa la clave en la barra lateral para acceder a los datos biológicos de Ensenada.")
     
 # Configuración de la página
 st.set_page_config(
