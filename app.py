@@ -2,12 +2,16 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+# --- FUNCIÓN CORRECTA PARA LAS FOTOS ---
 def transformar_link_drive(url):
     """Convierte un link de visualización de Drive en un link directo para imágenes."""
-    if "drive.google.com" in url:
-        # Extrae el ID del archivo y crea el link de exportación directa
-        file_id = url.split('/')[-2] if 'view' in url else url.split('id=')[-1]
-        return f"https://drive.google.com/uc?export=view&id={1Xu0sDV-MjcXQcj6kUCxLZ2dkAPFvTmZ46MjMpLSiUa_jzdGciwpxWZbmlXXR2Q5bsm_8wjSt}"
+    if "drive.google.com" in str(url):
+        try:
+            # Esta línea extrae automáticamente el ID de cualquier link que le mandes
+            file_id = url.split('/')[-2] if 'view' in url else url.split('id=')[-1]
+            return f"https://drive.google.com/uc?export=view&id={file_id}"
+        except:
+            return url
     return url
 
 # --- DENTRO DE TU FOR PARA EL MAPA ---
