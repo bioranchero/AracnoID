@@ -2,22 +2,6 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
-# --- FUNCIÓN CORRECTA PARA LAS FOTOS ---
-def transformar_link_drive(url):
-    """Convierte un link de visualización de Drive en un link directo para imágenes."""
-    if "drive.google.com" in str(url):
-        try:
-            # Esta línea extrae automáticamente el ID de cualquier link que le mandes
-            file_id = url.split('/')[-2] if 'view' in url else url.split('id=')[-1]
-            return f"https://drive.google.com/uc?export=view&id={file_id}"
-        except:
-            return url
-    return url
-
-# --- DENTRO DE TU FOR PARA EL MAPA ---
-url_cruda = row['foto']
-# Usamos la función para que la imagen sí cargue en el popup
-url_foto = transformar_link_drive(str(url_cruda))
 
 # Configuración de la página
 st.set_page_config(
@@ -195,32 +179,24 @@ try: # Línea 201 (Abre el bloque)
 
     # 2. Ciclo de registros
     for i, row in df.iterrows():
-        riesgo_v = str(row['riesgo']).strip()
-        color_f = 'red' if riesgo_v == "Peligro" else 'orange' if riesgo_v == "Precaución" else 'green'
-        
-        # Procesamos la imagen de Google Drive
-        url_cruda = str(row.get('foto', ''))
-        url_foto = transformar_link_drive(url_cruda)
-        
-        # HTML del popup
-        if "http" in url_foto:
-            html_p = f"<b>{row['especie']}</b><br><img src='{url_foto}' width='180' style='border-radius:5px;'>"
-        else:
-            html_p = f"<b>{row['especie']}</b><br>Nivel: {riesgo_v}"
+            # Definimos variables DENTRO del for para que no den NameError
+            riesgo_v = str(row['riesgo']).strip()
+            especie_n = str(row['especie'])
+            
+            # Solo texto, sin imágenes por ahora
+            html_popup = f"<b>Especie:</b> {especie_n}<br><b>Riesgo:</b> {riesgo_v}"
+            
+            folium.Marker(
+                location=[row['lat'], row['lon']],
+                popup=folium.Popup(html_popup, max_width=200),
+                icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
+            ).add_to(puntos_registro)
 
-        folium.Marker(
-            location=[row['lat'], row['lon']],
-            popup=folium.Popup(html_p, max_width=200),
-            icon=folium.Icon(color=color_f, icon='paw', prefix='fa')
-        ).add_to(puntos_registro)
+        puntos_registro.add_to(m)
+        st_folium(m, width=700, height=450)
 
-    # 3. Dibujar mapa
-    puntos_registro.add_to(m)
-    st_folium(m, width=700, height=450)
-
-except Exception as e: # CIERRA EL BLOQUE (Esto evita el SyntaxError)
-    st.warning("Sincronizando base de datos de aracnofauna...")
-    # st.write(f"Detalle técnico: {e}") # Descomenta esta línea si quieres ver el error real
+    except Exception as e:
+        st.warning("Sincronizando base de datos local...")
 
 # --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
 st.write("### 📢 ¿Encontraste un ejemplar?")
