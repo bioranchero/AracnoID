@@ -7,7 +7,7 @@ def transformar_link_drive(url):
     if "drive.google.com" in url:
         # Extrae el ID del archivo y crea el link de exportación directa
         file_id = url.split('/')[-2] if 'view' in url else url.split('id=')[-1]
-        return f"https://drive.google.com/uc?export=view&id={1Xu0sDV-MjcXQcj6kUCxLZ2dkAPFvTmZ46MjMpLSiUa_jzdGciwpxWZbmlXXR2Q5bsm_8wjSt}"
+        return f"https://drive.google.com/uc?export=view&id=1Xu0sDV-MjcXQcj6kUCxLZ2dkAPFvTmZ46MjMpLSiUa_jzdGciwpxWZbmlXXR2Q5bsm_8wjSt"
     return url
 
 # --- DENTRO DE TU FOR PARA EL MAPA ---
