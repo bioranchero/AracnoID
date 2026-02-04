@@ -170,8 +170,8 @@ st.write("---")
 st.header("🗺️ Mapa de Avistamientos (Tiempo Real)")
 st.info("Los colores de los pines coinciden con nuestro semáforo de riesgo biológico.")
 
-# --- INICIO DEL BLOQUE DEL MAPA ---
-try: # Línea 201 (Abre el bloque)
+# --- INICIO DEL BLOQUE DEL MAPA (CORREGIDO) ---
+try:
     # 1. Carga de datos
     df = pd.read_csv(url)
     m = folium.Map(location=[31.8663, -116.6679], zoom_start=11)
@@ -179,21 +179,22 @@ try: # Línea 201 (Abre el bloque)
 
     # 2. Ciclo de registros
     for i, row in df.iterrows():
-            riesgo_v = str(row['riesgo']).strip()
-            
-            # El marcador tiene una sangría hacia adentro del 'for'
-            folium.Marker(
-                location=[row['lat'], row['lon']],
-                popup=f"<b>{row['especie']}</b>",
-                icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
-            ).add_to(puntos_registro)
+        riesgo_v = str(row['riesgo']).strip()
+        
+        # El marcador está ADENTRO del for (con sangría)
+        folium.Marker(
+            location=[row['lat'], row['lon']],
+            popup=f"<b>{row['especie']}</b>",
+            icon=folium.Icon(color='red' if riesgo_v == 'Peligro' else 'green', icon='paw', prefix='fa')
+        ).add_to(puntos_registro)
 
-        # ESTA LÍNEA DEBE ESTAR ALINEADA CON EL 'FOR' DE ARRIBA
+    # 3. Estas líneas van AFUERA del for (alineadas con la palabra 'for')
     puntos_registro.add_to(m)
     st_folium(m, width=700, height=450)
 
-    except Exception as e:
-        st.warning("Sincronizando base de datos local...")
+# 4. El except DEBE estar alineado con el 'try' inicial
+except Exception as e:
+    st.warning("Sincronizando base de datos local...")
 
 # --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
 st.write("### 📢 ¿Encontraste un ejemplar?")
