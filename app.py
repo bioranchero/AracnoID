@@ -198,27 +198,27 @@ try:
 
 # 1. Iniciamos el ciclo (AQUÍ se crea la variable 'row')
 # --- SECCIÓN DEL MAPA (CON ESTRUCTURA CORRECTA) ---
-try:
-    # 1. Cargamos los datos
+# --- INICIO DEL BLOQUE DEL MAPA ---
+try: # Línea 201 (Abre el bloque)
+    # 1. Carga de datos
     df = pd.read_csv(url)
     m = folium.Map(location=[31.8663, -116.6679], zoom_start=11)
     puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
-    # 2. Ciclo para recorrer las filas (AQUÍ va el 'for')
+    # 2. Ciclo de registros
     for i, row in df.iterrows():
-        # Lógica de colores e iconos
         riesgo_v = str(row['riesgo']).strip()
         color_f = 'red' if riesgo_v == "Peligro" else 'orange' if riesgo_v == "Precaución" else 'green'
         
-        # Lógica de la foto (usando la función que pusimos al inicio)
+        # Procesamos la imagen de Google Drive
         url_cruda = str(row.get('foto', ''))
         url_foto = transformar_link_drive(url_cruda)
         
-        # Preparamos el popup con la imagen
+        # HTML del popup
         if "http" in url_foto:
             html_p = f"<b>{row['especie']}</b><br><img src='{url_foto}' width='180' style='border-radius:5px;'>"
         else:
-            html_p = f"<b>{row['especie']}</b>"
+            html_p = f"<b>{row['especie']}</b><br>Nivel: {riesgo_v}"
 
         folium.Marker(
             location=[row['lat'], row['lon']],
@@ -226,14 +226,13 @@ try:
             icon=folium.Icon(color=color_f, icon='paw', prefix='fa')
         ).add_to(puntos_registro)
 
-    # 3. Cerramos el mapa
+    # 3. Dibujar mapa
     puntos_registro.add_to(m)
     st_folium(m, width=700, height=450)
 
-# 4. EL 'EXCEPT' QUE TE FALTABA (Alineado con el 'try')
-except Exception as e:
-    st.warning("Sincronizando registros desde la base de datos de Ensenada...")
-    # Opcional: st.write(e) # Esto te diría el error real si algo falla
+except Exception as e: # CIERRA EL BLOQUE (Esto evita el SyntaxError)
+    st.warning("Sincronizando base de datos de aracnofauna...")
+    # st.write(f"Detalle técnico: {e}") # Descomenta esta línea si quieres ver el error real
 
 # --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
 st.write("### 📢 ¿Encontraste un ejemplar?")
