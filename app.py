@@ -146,7 +146,7 @@ try:
         elif riesgo_valor == "Precaución":
             color_f = 'orange'; icon_f = 'warning'; pref = 'fa'
         else:
-            color_f = 'green'; icon_f = 'leaf'; pref = 'glyphicon'
+            color_f = 'green'; icon_f = 'heart'; pref = 'glyphicon'
         
         # Añadimos cada marcador al grupo
         folium.Marker(
