@@ -41,7 +41,7 @@ with tab_app:
 with tab_sobre:
     st.header("Sobre el Proyecto y Autor")
     st.markdown("""
-    ¡Hola! Soy un estudiante de **Biología** apasionado por la aracnología y la tecnología aplicada a la naturaleza.
+    ¡Hola! Soy Aaron, un estudiante de **Biología** apasionado por la aracnología y la tecnología aplicada a la naturaleza.
     
     **AracnoID** nació con el objetivo de:
     * Mapear la biodiversidad de arácnidos en la región de Baja California.
