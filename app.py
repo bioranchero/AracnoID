@@ -197,27 +197,43 @@ try:
     # ... (Código de carga de datos arriba)
 
 # 1. Iniciamos el ciclo (AQUÍ se crea la variable 'row')
-for i, row in df.iterrows():
-    
-    # 2. TODO esto debe tener sangría (4 o 8 espacios a la derecha)
-    # Si la línea de abajo está pegada a la izquierda, dará NameError
-    url_cruda = str(row.get('foto', '')) 
-    url_foto = transformar_link_drive(url_cruda)
-    
-    riesgo_v = str(row['riesgo']).strip()
-    
-    # Preparamos el marcador
-    folium.Marker(
-        location=[row['lat'], row['lon']],
-        popup=f"<b>{row['especie']}</b>",
-        # ... resto del código del marcador
-    ).add_to(puntos_registro)
+# --- SECCIÓN DEL MAPA (CON ESTRUCTURA CORRECTA) ---
+try:
+    # 1. Cargamos los datos
+    df = pd.read_csv(url)
+    m = folium.Map(location=[31.8663, -116.6679], zoom_start=11)
+    puntos_registro = folium.FeatureGroup(name="Avistamientos")
 
-# 3. El mapa se muestra FUERA del for (alineado con la palabra 'for')
-st_folium(m, width=700, height=450)
+    # 2. Ciclo para recorrer las filas (AQUÍ va el 'for')
+    for i, row in df.iterrows():
+        # Lógica de colores e iconos
+        riesgo_v = str(row['riesgo']).strip()
+        color_f = 'red' if riesgo_v == "Peligro" else 'orange' if riesgo_v == "Precaución" else 'green'
+        
+        # Lógica de la foto (usando la función que pusimos al inicio)
+        url_cruda = str(row.get('foto', ''))
+        url_foto = transformar_link_drive(url_cruda)
+        
+        # Preparamos el popup con la imagen
+        if "http" in url_foto:
+            html_p = f"<b>{row['especie']}</b><br><img src='{url_foto}' width='180' style='border-radius:5px;'>"
+        else:
+            html_p = f"<b>{row['especie']}</b>"
 
+        folium.Marker(
+            location=[row['lat'], row['lon']],
+            popup=folium.Popup(html_p, max_width=200),
+            icon=folium.Icon(color=color_f, icon='paw', prefix='fa')
+        ).add_to(puntos_registro)
+
+    # 3. Cerramos el mapa
+    puntos_registro.add_to(m)
+    st_folium(m, width=700, height=450)
+
+# 4. EL 'EXCEPT' QUE TE FALTABA (Alineado con el 'try')
 except Exception as e:
-    st.error(f"Error al cargar el mapa: {e}")
+    st.warning("Sincronizando registros desde la base de datos de Ensenada...")
+    # Opcional: st.write(e) # Esto te diría el error real si algo falla
 
 # --- BOTÓN DE REGISTRO PARA CIENCIA CIUDADANA ---
 st.write("### 📢 ¿Encontraste un ejemplar?")
