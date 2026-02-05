@@ -372,10 +372,6 @@ with st.expander("¿Cómo puedo colaborar con el proyecto?"):
     (especialmente de los ojos y marcas del cuerpo) para seguir nutriendo esta herramienta educativa.
     """)
 
-# Pie de página
-st.write("---")
-st.caption("© 2026 AracnoID.")
-
 # --- PIE DE PÁGINA ---
 st.markdown("---")
 col_footer1, col_footer2 = st.columns([3, 1])
@@ -383,7 +379,7 @@ col_footer1, col_footer2 = st.columns([3, 1])
 with col_footer1:
     st.markdown(f"""
         <div style="color: #666666; font-size: 0.8rem;">
-            © 2026 <b>AracnoID Ensenada</b>. Desarrollado por <b>Bioranchero</b> para la investigación de la biodiversidad en Baja California.<br>
+            © 2026 <b>AracnoID Ensenada</b>. Desarrollado por <b>BIORANCHERO</b> para la investigación de la biodiversidad en Baja California.<br>
             Todos los derechos reservados. El uso de los datos para fines comerciales requiere autorización.
         </div>
     """, unsafe_allow_html=True)
