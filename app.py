@@ -55,6 +55,23 @@ st.write("Herramienta desarrollada para el estudio y divulgación de los arácni
 # 1. Definir las pestañas en la parte superior
 tab_app, tab_sobre, tab_contacto = st.tabs(["🕷️ Identificador", "👨‍🔬 Sobre Mí", "📧 Contacto"])
 
+# --- CREACIÓN DE PESTAÑAS (Esto debe ir ARRIBA de la línea 106) ---
+tab_id, tab_registro, tab_mapa = st.tabs(["🔍 Identificador", "📝 Registrar", "📍 Mapa"])
+
+# --- AHORA SÍ PUEDES USARLAS ---
+with tab_id:
+    st.header("Identificador Rápido")
+    # Aquí va tu lógica de las 8 patas y los ojos...
+
+with tab_registro: # <--- Aquí es donde daba el error
+    st.header("Reporta tu Hallazgo")
+    st.write("Usa este formulario oficial para subir tus fotos y datos.")
+    
+    # Insertar el Google Form (Iframe)
+    # Copia el link de 'Insertar' de tu Google Form
+    link_google_form = "https://docs.google.com/forms/d/e/TU_ID_AQUÍ/viewform?embedded=true"
+    st.components.v1.iframe(link_google_form, height=900, scrolling=True)
+
 with tab_app:
     # AQUÍ PEGAS TODO TU CÓDIGO ACTUAL (Título, Identificador, Mapa, FAQ, etc.)
     st.write("Bienvenido a AracnoID")
@@ -102,15 +119,6 @@ if st.sidebar.button("PayPal"):
 st.sidebar.divider()
 st.sidebar.write("### 📢 ¡Sígueme!")
 st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https://www.youtube.com/bioranchero)")
-
-with tab_registro:
-    st.header("📝 Registro de Avistamientos")
-    st.write("Completa el formulario oficial para colaborar con el mapeo de biodiversidad.")
-    
-    # Aquí pegas el link de 'Insertar' que te da Google Forms
-    link_form = "https://docs.google.com/forms/d/e/1FAIpQLSfHzqHdiPBuMuCbPYQLda8Snhp2t_V0CBURI8L8d5t-2ZdoIA/viewform?embedded=true"
-    
-    st.components.v1.iframe(link_form, height=800, scrolling=True)
 
 # --- SECCIÓN DE IDENTIFICACIÓN ---
 st.header("🔍 Identificador Rápido")
