@@ -103,6 +103,15 @@ st.sidebar.divider()
 st.sidebar.write("### 📢 ¡Sígueme!")
 st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https://www.youtube.com/bioranchero)")
 
+with tab_registro:
+    st.header("📝 Registro de Avistamientos")
+    st.write("Completa el formulario oficial para colaborar con el mapeo de biodiversidad.")
+    
+    # Aquí pegas el link de 'Insertar' que te da Google Forms
+    link_form = "https://docs.google.com/forms/d/e/TU_ID_AQUÍ/viewform?embedded=true"
+    
+    st.components.v1.iframe(link_form, height=800, scrolling=True)
+
 # --- SECCIÓN DE IDENTIFICACIÓN ---
 st.header("🔍 Identificador Rápido")
 st.write("Responde según lo que observes en el ejemplar:")
