@@ -108,7 +108,7 @@ st.sidebar.divider()
 st.sidebar.write("### 📢 ¡Sígueme!")
 st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https://www.youtube.com/bioranchero)")
 
-with tab_id:
+with tab_app:
 # --- SECCIÓN DE IDENTIFICACIÓN ---
 st.header("🔍 Identificador Rápido")
 st.write("Responde según lo que observes en el ejemplar:")
