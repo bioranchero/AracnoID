@@ -31,6 +31,24 @@ st.set_page_config(
     layout="centered"
 )
 
+# 2. Hack para el icono en el celular (Pantalla de inicio)
+st.markdown(
+    """
+    <style>
+    /* Esto es para que el usuario sepa que puede instalarla */
+    </style>
+    
+    <link rel="apple-touch-icon" href="https://em-content.zobj.net/source/apple/354/spider_1f577-fe0f.png">
+    
+    <link rel="icon" type="image/png" href="https://em-content.zobj.net/source/apple/354/spider_1f577-fe0f.png">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="AracnoID">
+    """,
+    unsafe_allow_html=True
+)
+
 # Estilos personalizados para que se vea más profesional
 st.markdown("""
     <style>
