@@ -53,10 +53,7 @@ st.subheader("Guía interactiva de aracnofauna local")
 st.write("Herramienta desarrollada para el estudio y divulgación de los arácnidos en Baja California.")
 
 # 1. Definir las pestañas en la parte superior
-tab_app, tab_sobre, tab_contacto = st.tabs(["🕷️ Identificador", "👨‍🔬 Sobre Mí", "📧 Contacto"])
-
-# --- CREACIÓN DE PESTAÑAS (Esto debe ir ARRIBA de la línea 106) ---
-tab_id, tab_registro, tab_mapa = st.tabs(["🔍 Identificador", "📝 Registrar", "📍 Mapa"])
+tab_app, tab_sobre, tab_registro, tab_contacto = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto"])
 
 # --- AHORA SÍ PUEDES USARLAS ---
 with tab_id:
@@ -65,11 +62,11 @@ with tab_id:
 
 with tab_registro: # <--- Aquí es donde daba el error
     st.header("Reporta tu Hallazgo")
-    st.write("Usa este formulario oficial para subir tus fotos y datos.")
+    st.write("Usa este formulario oficial para subir tus datos.")
     
     # Insertar el Google Form (Iframe)
     # Copia el link de 'Insertar' de tu Google Form
-    link_google_form = "https://docs.google.com/forms/d/e/TU_ID_AQUÍ/viewform?embedded=true"
+    link_google_form = "https://docs.google.com/forms/d/e/1FAIpQLSfHzqHdiPBuMuCbPYQLda8Snhp2t_V0CBURI8L8d5t-2ZdoIA/viewform?embedded=true"
     st.components.v1.iframe(link_google_form, height=900, scrolling=True)
 
 with tab_app:
