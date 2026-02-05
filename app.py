@@ -86,10 +86,6 @@ with tab_contacto:
         st.write("### Redes Sociales")
         st.write("[TikTok](https://www.tiktok.com/bioranchero)")
         st.write("[YouTube](https://www.youtube.com/bioranchero)")
-    
-    with col_c2:
-        st.write("### Colaboración Académica")
-        st.write("Si eres investigador o institución, envíame un mensaje para acceder a la base de datos completa de avistamientos.")
 
 with tab_contacto:
     st.header("🤝 Colaboración Académica")
@@ -100,7 +96,7 @@ with tab_contacto:
     """)
     
     # Tu correo electrónico
-    mi_correo = "tu_correo@ejemplo.com" # <--- Cambia esto por el tuyo
+    mi_correo = "mendez.aaron@uabc.edu.mx" # <--- Cambia esto por el tuyo
     
     # Diseño con columnas para que se vea limpio
     col1, col2 = st.columns([1, 2])
