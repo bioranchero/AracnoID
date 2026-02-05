@@ -56,7 +56,7 @@ st.write("Herramienta desarrollada para el estudio y divulgación de los arácni
 tab_app, tab_sobre, tab_registro, tab_contacto = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto"])
 
 # --- AHORA SÍ PUEDES USARLAS ---
-with tab_id:
+with tab_app:
     st.header("Identificador Rápido")
     # Aquí va tu lógica de las 8 patas y los ojos...
 
