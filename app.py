@@ -4,7 +4,7 @@ from streamlit_folium import st_folium
 import pandas as pd
 
 # 1. Configuración de seguridad
-password_correcta = "aracno2026"
+password_correcta = "333"
 
 # Usamos la barra lateral para que no estorbe en el diseño principal
 st.sidebar.title("Seguridad")
