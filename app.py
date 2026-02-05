@@ -375,3 +375,23 @@ with st.expander("¿Cómo puedo colaborar con el proyecto?"):
 # Pie de página
 st.write("---")
 st.caption("© 2026 AracnoID.")
+
+# --- PIE DE PÁGINA ---
+st.markdown("---")
+col_footer1, col_footer2 = st.columns([3, 1])
+
+with col_footer1:
+    st.markdown(f"""
+        <div style="color: #666666; font-size: 0.8rem;">
+            © 2026 <b>AracnoID Ensenada</b>. Desarrollado por <b>Bioranchero</b> para la investigación de la biodiversidad en Baja California.<br>
+            Todos los derechos reservados. El uso de los datos para fines comerciales requiere autorización.
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_footer2:
+    # Un toque institucional para tu carrera
+    st.markdown("""
+        <div style="text-align: right; opacity: 0.6;">
+            🔬 <b>Facultad de Ciencias, UABC</b>
+        </div>
+    """, unsafe_allow_html=True)
