@@ -88,7 +88,7 @@ with tab_contacto:
         st.write("[YouTube](https://www.youtube.com/bioranchero)")
 
 with tab_contacto:
-    st.header("🤝 Colaboración Académica")
+    st.header("🤝🏻 Colaboración Académica")
     st.write("""
     Si eres investigador, estudiante de biología o perteneces a una institución y deseas 
     acceder a la base de datos completa de avistamientos en Ensenada para fines científicos, 
@@ -99,7 +99,7 @@ with tab_contacto:
     mi_correo = "mendez.aaron@uabc.edu.mx" # <--- Cambia esto por el tuyo
     
     # Diseño con columnas para que se vea limpio
-    col1, col2 = st.columns([1, 2])
+    col_info, col_espacio, col_boton = st.columns([2, 0.5, 2])
     
     with col1:
         st.info(f"📧 **Email:**\n{mi_correo}")
@@ -108,7 +108,7 @@ with tab_contacto:
         # Botón que abre el gestor de correo del usuario automáticamente
         # Incluye un asunto (subject) predeterminado para que sepas de qué trata
         asunto = "Consulta sobre Base de Datos AracnoID - Ensenada"
-        cuerpo = "Hola, Bioranchero. Me gustaría colaborar en el proyecto..."
+        cuerpo = "Hola, BIORANCHERO. Me gustaría colaborar en el proyecto..."
         
         link_correo = f"mailto:{mi_correo}?subject={asunto}&body={cuerpo}"
         
