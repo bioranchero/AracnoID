@@ -109,6 +109,7 @@ st.sidebar.write("### 📢 ¡Sígueme!")
 st.sidebar.write("[TikTok](https://www.tiktok.com/bioranchero) | [YouTube](https://www.youtube.com/bioranchero)")
 
 # --- SECCIÓN DE IDENTIFICACIÓN ---
+st.write("---")
 st.header("🔍 Identificador Rápido")
 st.write("Responde según lo que observes en el ejemplar:")
 
