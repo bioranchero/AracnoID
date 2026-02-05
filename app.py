@@ -121,8 +121,7 @@ with tab_contacto:
                     border: none; 
                     border-radius: 5px; 
                     cursor: pointer;
-                    width: auto;
-                    min-width: 200px;
+                    width: 150%
                     Enviar Correo Directo
                 </button>
             </a>
