@@ -12,8 +12,7 @@ acceso = st.sidebar.text_input("Introduce la contraseña:", type="password")
 
 if acceso == password_correcta:
     st.sidebar.success("Acceso concedido ✅")
-    # Si quieres, puedes poner un mensaje de bienvenida aquí
-    st.balloons() # Un pequeño efecto visual al entrar
+  
 else:
     if acceso == "":
         st.warning("🔒 Contraseña requerida")
