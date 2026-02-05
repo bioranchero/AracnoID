@@ -91,6 +91,49 @@ with tab_contacto:
         st.write("### Colaboración Académica")
         st.write("Si eres investigador o institución, envíame un mensaje para acceder a la base de datos completa de avistamientos.")
 
+with tab_contacto:
+    st.header("🤝 Colaboración Académica")
+    st.write("""
+    Si eres investigador, estudiante de biología o perteneces a una institución y deseas 
+    acceder a la base de datos completa de avistamientos en Ensenada para fines científicos, 
+    por favor ponte en contacto conmigo.
+    """)
+    
+    # Tu correo electrónico
+    mi_correo = "tu_correo@ejemplo.com" # <--- Cambia esto por el tuyo
+    
+    # Diseño con columnas para que se vea limpio
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.info(f"📧 **Email:**\n{mi_correo}")
+        
+    with col2:
+        # Botón que abre el gestor de correo del usuario automáticamente
+        # Incluye un asunto (subject) predeterminado para que sepas de qué trata
+        asunto = "Consulta sobre Base de Datos AracnoID - Ensenada"
+        cuerpo = "Hola, Bioranchero. Me gustaría colaborar en el proyecto..."
+        
+        link_correo = f"mailto:{mi_correo}?subject={asunto}&body={cuerpo}"
+        
+        st.markdown(f"""
+            <a href="{link_correo}" target="_blank">
+                <button style="
+                    background-color: #2e7d32; 
+                    color: white; 
+                    padding: 10px 20px; 
+                    border: none; 
+                    border-radius: 5px; 
+                    cursor: pointer;
+                    width: 100%;">
+                    Enviar Correo Directo
+                </button>
+            </a>
+        """, unsafe_allow_html=True)
+
+    st.divider()
+    st.write("📍 **Ubicación:** Facultad de Ciencias, Ensenada, B.C.")
+
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
 st.sidebar.info("""
