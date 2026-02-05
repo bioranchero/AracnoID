@@ -206,7 +206,7 @@ with col3:
 # --- CONFIGURACIÓN DE DATOS ---
 # Recuerda cambiar 'TU_ID_AQUÍ' por el ID de tu hoja de Google
 SHEET_ID = '1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg'
-url = f'https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/gviz/tq?tqx=out:csv'
+url = f'https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/export?format=csv'
 
 st.write("---")
 st.header("🗺️ Mapa de Avistamientos (Tiempo Real)")
