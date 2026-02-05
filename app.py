@@ -151,8 +151,8 @@ with tab_contacto:
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
 st.sidebar.info("""
-Este proyecto es desarrollado por un estudiante de **Biología**. 
-Mi meta es mapear la biodiversidad de Ensenada y educar sobre su importancia.
+Este proyecto es desarrollado por Aaron Mendez, un estudiante de **Biología**. 
+El objetivo es mapear la biodiversidad de Ensenada y educar sobre su importancia.
 """)
 
 st.sidebar.divider()
