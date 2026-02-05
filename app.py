@@ -108,7 +108,7 @@ with tab_registro:
     st.write("Completa el formulario oficial para colaborar con el mapeo de biodiversidad.")
     
     # Aquí pegas el link de 'Insertar' que te da Google Forms
-    link_form = "https://docs.google.com/forms/d/e/TU_ID_AQUÍ/viewform?embedded=true"
+    link_form = "https://docs.google.com/forms/d/e/1FAIpQLSfHzqHdiPBuMuCbPYQLda8Snhp2t_V0CBURI8L8d5t-2ZdoIA/viewform?embedded=true"
     
     st.components.v1.iframe(link_form, height=800, scrolling=True)
 
