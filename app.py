@@ -99,7 +99,7 @@ with tab_contacto:
     mi_correo = "mendez.aaron@uabc.edu.mx" # <--- Cambia esto por el tuyo
     
     # Diseño con columnas para que se vea limpio
-    col_info, col_espacio, col_boton = st.columns([2, 0.5, 2])
+    col1, col2 = st.columns([1, 2])
     
     with col1:
         st.info(f"📧 **Email:**\n{mi_correo}")
