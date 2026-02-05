@@ -102,8 +102,8 @@ with tab_contacto:
     col_c1, col_c2 = st.columns(2)
     with col_c1:
         st.write("### Redes Sociales")
-        st.write("[TikTok](https://www.tiktok.com/bioranchero)")
-        st.write("[YouTube](https://www.youtube.com/bioranchero)")
+        st.write("[TikTok](https://www.tiktok.com/@bioranchero)")
+        st.write("[YouTube](https://www.youtube.com/@BioRanchero)")
 
 with tab_contacto:
     st.header("🤝🏻 Colaboración Académica")
