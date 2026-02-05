@@ -53,7 +53,7 @@ st.subheader("Guía interactiva de aracnofauna local")
 st.write("Herramienta desarrollada para el estudio y divulgación de los arácnidos en Baja California.")
 
 # 1. Definir las pestañas en la parte superior
-tab_app, tab_registro, tab_registro, tab_contacto = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto"])
+tab_app, tab_registro, tab_sobre, tab_contacto = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto"])
 
 # --- AHORA SÍ PUEDES USARLAS ---
 with tab_app:
