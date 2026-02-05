@@ -121,14 +121,15 @@ with tab_contacto:
                     border: none; 
                     border-radius: 5px; 
                     cursor: pointer;
-                    width: 100%;">
+                    width: auto;
+                    min-width: 200px;
                     Enviar Correo Directo
                 </button>
             </a>
         """, unsafe_allow_html=True)
 
     st.divider()
-    st.write("📍 **Ubicación:** Facultad de Ciencias, Ensenada, B.C.")
+    st.write("📍 **Ubicación:** Facultad de Ciencias, Universidad Autónoma de Baja California, Ensenada, B.C.")
 
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
