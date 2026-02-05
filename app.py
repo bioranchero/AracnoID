@@ -11,6 +11,13 @@ st.sidebar.title("Seguridad")
 acceso = st.sidebar.text_input("Introduce la contraseña:", type="password")
 
 if acceso == password_correcta:
+        # ¡MÁGIA!: Al entrar, limpiamos el contenedor por completo
+        placeholder.empty() 
+        st.session_state['autenticado'] = True
+    elif acceso != "":
+        st.error("❌ Contraseña incorrecta")
+
+if acceso == password_correcta:
     st.sidebar.success("Acceso concedido ✅")
   
 else:
