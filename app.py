@@ -8,8 +8,12 @@ from streamlit_gsheets import GSheetsConnection
 # Esta línea DEBE estar aquí arriba, fuera de cualquier pestaña.
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-# --- 2. CARGA DE DATOS ---
-url = "https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/edit?usp=sharing"
+# Sustituye TU_ID_DE_SHEET por el código largo que viene en tu URL
+sheet_id = "1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg" 
+url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=0"
+
+# Leemos directamente con pandas, saltándonos el bloqueo de conexión
+df = pd.read_csv(url)
 
 df = conn.read(spreadsheet=url, worksheet="Form_Responses")
 # 1. Configuración de seguridad
