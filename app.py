@@ -163,6 +163,14 @@ with tab_contacto:
     st.write("📍 **Ubicación:** Facultad de Ciencias, Universidad Autónoma de Baja California, Ensenada, B.C.")
 
 # --- COLECCIÓN ---
+with tab_coleccion:
+    st.header("📚 Colección Aracnológica - UABC")
+    
+    # 1. Sistema de Seguridad
+    password = st.text_input("Introduce la clave de laboratorio:", type="password")
+    
+    if password == "UABC": 
+        st.success("Acceso concedido")
 # --- SECCIÓN DEL CONTADOR GLOBAL ---
         # Todo lo que sigue tiene que estar alineado aquí (un tab a la derecha del 'if')
         if 'ID_Coleccion' in df.columns:
