@@ -2,6 +2,15 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+import GSheetsConnection
+
+# --- 1. CONFIGURACIÓN DE LA CONEXIÓN (IMPORTANTE) ---
+# Esta línea DEBE estar aquí arriba, fuera de cualquier pestaña.
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+# --- 2. CARGA DE DATOS ---
+# Leemos los datos una sola vez para que estén disponibles en toda la app
+df = conn.read(worksheet="Form_Responses")
 
 # 1. Configuración de seguridad
 password_correcta = "333"
