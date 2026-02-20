@@ -169,7 +169,7 @@ with tab_coleccion:
     # 1. Sistema de Seguridad (Opcional)
     password = st.text_input("Introduce la clave de laboratorio:", type="password")
     
-    if password == "BiorancheroUABC": # Puedes cambiar esta clave
+    if password == "UABC": # Puedes cambiar esta clave
         st.success("Acceso concedido")
 
         # 2. Verificamos que las columnas de tus fotos existan en el df
