@@ -153,24 +153,34 @@ with tab_coleccion:
     st.header("📚 Colección Aracnológica de Referencia")
     st.write("Registros vinculados a ejemplares físicos en el laboratorio de la Facultad.")
     
-    # Supongamos que marcamos los ejemplares colectados en una columna llamada 'En_Coleccion'
-    # Si no la tienes, podemos filtrar los que tengan un número de catálogo
-    if 'ID_Coleccion' in df.columns:
+    # Verificamos si la variable 'df' existe y no está vacía
+    if 'df' in locals() and not df.empty:
+        
+        # Si la columna no existe en el Sheets todavía, la creamos vacía en el código
+        # para que no marque error mientras tú la añades al Excel
+        if 'ID_Coleccion' not in df.columns:
+            df['ID_Coleccion'] = None
+
         df_coleccion = df[df['ID_Coleccion'].notna()]
         
-        st.dataframe(df_coleccion[['ID_Coleccion', 'Especie', 'Fecha', 'Localidad']], use_container_width=True)
-        
-        # Un pequeño buscador por ID de catálogo
-        search_id = st.text_input("Buscar ejemplar por número de catálogo (ID):")
-        if search_id:
-            resultado = df_coleccion[df_coleccion['ID_Coleccion'] == search_id]
-            if not resultado.empty:
-                st.success(f"Ejemplar localizado: {resultado['Especie'].values[0]}")
-                st.write(f"**Ubicación de colecta:** {resultado['Localidad'].values[0]}")
-            else:
-                st.error("ID no encontrado en el acervo.")
+        if not df_coleccion.empty:
+            # Mostramos la tabla (asegúrate que estos nombres de columna existan en tu Sheets)
+            # Si tu columna de fecha se llama diferente, cámbiala aquí:
+            columnas_ver = ['ID_Coleccion', 'Especie', 'Marca temporal'] 
+            st.dataframe(df_coleccion[columnas_ver], use_container_width=True)
+            
+            search_id = st.text_input("Buscar ejemplar por número de catálogo (ID):")
+            if search_id:
+                resultado = df_coleccion[df_coleccion['ID_Coleccion'].astype(str) == search_id]
+                if not resultado.empty:
+                    st.success(f"Ejemplar localizado: {resultado['Especie'].values[0]}")
+                    st.write(f"**Registrado el:** {resultado['Marca temporal'].values[0]}")
+                else:
+                    st.error("ID no encontrado en el acervo.")
+        else:
+            st.info("Aún no hay ejemplares con ID de catálogo en el sistema.")
     else:
-        st.info("Aún no hay ejemplares vinculados a la colección física. ¡Próximamente!")
+        st.error("No se pudieron cargar los datos del Google Sheets. Revisa la conexión.")
 
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
