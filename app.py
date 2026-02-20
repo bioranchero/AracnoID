@@ -15,7 +15,6 @@ url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid=
 # Leemos directamente con pandas, saltándonos el bloqueo de conexión
 df = pd.read_csv(url)
 
-df = conn.read(spreadsheet=url, worksheet="Form_Responses")
 # 1. Configuración de seguridad
 password_correcta = "333"
 
