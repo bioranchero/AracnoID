@@ -172,6 +172,22 @@ with tab_coleccion:
     if password == "UABC": # Puedes cambiar esta clave
         st.success("Acceso concedido")
 
+        # --- SECCIÓN DEL CONTADOR GLOBAL ---
+if 'ID_Coleccion' in df.columns:
+    # Contamos solo las filas que tienen un ID asignado
+    total_ejemplares = df['ID_Coleccion'].notna().sum()
+    
+    # Creamos un diseño bonito con st.metric
+    st.markdown("---")
+    col_metric, _ = st.columns([1, 2]) # Para que no ocupe todo el ancho
+    with col_metric:
+        st.metric(
+            label="Total de Ejemplares en Acervo", 
+            value=f"{total_ejemplares} especímenes",
+            help="Número total de arañas con registro físico en el laboratorio."
+        )
+    st.markdown("---")
+
         # 2. Verificamos que las columnas de tus fotos existan en el df
         if 'ID_Coleccion' in df.columns:
             # Filtramos para mostrar solo filas que tengan un ID (como tu UABC_001_ST)
