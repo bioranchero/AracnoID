@@ -164,44 +164,40 @@ with tab_contacto:
 
 # COLECCION
 with tab_coleccion:
-    st.header("📚 Colección Aracnológica de Referencia")
+    st.header("📚 Colección Aracnológica - UABC")
     
-    try:
-        # Intentamos leer la hoja. 
-        # IMPORTANTE: Asegúrate de que 'conn' sea el nombre que definiste arriba.
-        # Si arriba pusiste 'conexion = st.connection...', aquí cambia 'conn' por 'conexion'.
-        df = conn.read(worksheet="Form_Responses") 
-        
+    # 1. Sistema de Seguridad (Opcional)
+    password = st.text_input("Introduce la clave de laboratorio:", type="password")
+    
+    if password == "BiorancheroUABC": # Puedes cambiar esta clave
+        st.success("Acceso concedido")
+
+        # 2. Verificamos que las columnas de tus fotos existan en el df
         if 'ID_Coleccion' in df.columns:
-            df_coleccion = df[df['ID_Coleccion'].notna()]
+            # Filtramos para mostrar solo filas que tengan un ID (como tu UABC_001_ST)
+            df_lab = df[df['ID_Coleccion'].notna()]
             
-            if not df_coleccion.empty:
-                st.subheader("Registros en Laboratorio")
-                # Usamos los nombres exactos de tu Sheets: especie, Fecha_Ingreso
-                columnas_existentes = [col for col in ['ID_Coleccion', 'especie', 'Fecha_Ingreso'] if col in df.columns]
-                st.dataframe(df_coleccion[columnas_existentes], use_container_width=True)
+            if not df_lab.empty:
+                st.subheader("Inventario de ejemplares")
+                # Mostramos la tabla con tus nuevos datos
+                st.dataframe(df_lab[['ID_Coleccion', 'especie', 'Fecha_Ingreso']], use_container_width=True)
                 
-                search_id = st.text_input("Buscar por ID de catálogo (ej. UABC_001_ST):")
+                # 3. Buscador por ID
+                search_id = st.text_input("Buscar ejemplar por ID:")
                 if search_id:
-                    resultado = df_coleccion[df_coleccion['ID_Coleccion'].astype(str).str.strip() == search_id.strip()]
-                    
+                    resultado = df_lab[df_lab['ID_Coleccion'].astype(str).str.strip() == search_id.strip()]
                     if not resultado.empty:
                         res = resultado.iloc[0]
-                        st.success(f"✅ Ejemplar: **{res['especie']}**")
-                        # Usamos get() por si la columna no existe o está vacía
-                        st.write(f"📅 **Ingreso:** {res.get('Fecha_Ingreso', 'No registrada')}")
-                        st.write(f"📍 **Coordenadas:** {res.get('lat', 'N/A')}, {res.get('lon', 'N/A')}")
+                        st.info(f"📍 Detalle del ejemplar: {res['especie']}")
+                        st.write(f"**Fecha de ingreso al laboratorio:** {res['Fecha_Ingreso']}")
                     else:
-                        st.warning("ID no encontrado. Revisa el Sheets.")
+                        st.warning("ID no encontrado en la base de datos.")
             else:
-                st.info("Aún no hay ejemplares con ID asignado.")
+                st.info("No hay ejemplares registrados con ID todavía.")
         else:
-            st.error("No se encontró la columna 'ID_Coleccion' en el Sheets.")
-            
-    except NameError:
-        st.error("Error técnico: La conexión 'conn' no está definida al inicio del código.")
-    except Exception as e:
-        st.error(f"Ocurrió un error inesperado: {e}")
+            st.error("La columna 'ID_Coleccion' no se detecta. Revisa que el nombre en el Sheets sea exacto.")
+    else:
+        st.info("🔒 Ingresa la contraseña para ver los datos de la colección física.")
         
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
