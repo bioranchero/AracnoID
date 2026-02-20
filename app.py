@@ -152,44 +152,43 @@ with tab_contacto:
 with tab_coleccion:
     st.header("📚 Colección Aracnológica de Referencia")
     
-    # 1. Forzamos la lectura de datos para asegurar que reconozca las columnas nuevas
     try:
-        # Asegúrate que 'conn' sea el nombre de tu conexión a GSheets
+        # Intentamos leer la hoja. 
+        # IMPORTANTE: Asegúrate de que 'conn' sea el nombre que definiste arriba.
+        # Si arriba pusiste 'conexion = st.connection...', aquí cambia 'conn' por 'conexion'.
         df = conn.read(worksheet="Form_Responses") 
         
-        # 2. Verificamos si la columna de la colección existe
         if 'ID_Coleccion' in df.columns:
-            # Filtramos solo los que tienen ID (como tu UABC_001_ST)
             df_coleccion = df[df['ID_Coleccion'].notna()]
             
             if not df_coleccion.empty:
                 st.subheader("Registros en Laboratorio")
-                # Ajustado a tus nombres: 'ID_Coleccion', 'especie', 'Fecha_Ingreso'
-                st.dataframe(df_coleccion[['ID_Coleccion', 'especie', 'Fecha_Ingreso']], use_container_width=True)
+                # Usamos los nombres exactos de tu Sheets: especie, Fecha_Ingreso
+                columnas_existentes = [col for col in ['ID_Coleccion', 'especie', 'Fecha_Ingreso'] if col in df.columns]
+                st.dataframe(df_coleccion[columnas_existentes], use_container_width=True)
                 
-                st.divider()
-                
-                # Buscador
-                search_id = st.text_input("Buscar por ID de catálogo:")
+                search_id = st.text_input("Buscar por ID de catálogo (ej. UABC_001_ST):")
                 if search_id:
-                    # Limpiamos espacios por si acaso
                     resultado = df_coleccion[df_coleccion['ID_Coleccion'].astype(str).str.strip() == search_id.strip()]
                     
                     if not resultado.empty:
                         res = resultado.iloc[0]
                         st.success(f"✅ Ejemplar: **{res['especie']}**")
-                        st.write(f"📅 **Ingreso:** {res['Fecha_Ingreso']}")
-                        st.write(f"📍 **Coordenadas:** {res['lat']}, {res['lon']}")
+                        # Usamos get() por si la columna no existe o está vacía
+                        st.write(f"📅 **Ingreso:** {res.get('Fecha_Ingreso', 'No registrada')}")
+                        st.write(f"📍 **Coordenadas:** {res.get('lat', 'N/A')}, {res.get('lon', 'N/A')}")
                     else:
-                        st.warning("ID no encontrado. Revisa si está bien escrito en el Sheets.")
+                        st.warning("ID no encontrado. Revisa el Sheets.")
             else:
-                st.info("Aún no hay ejemplares con ID asignado en el Google Sheets.")
+                st.info("Aún no hay ejemplares con ID asignado.")
         else:
-            st.error("No se encontró la columna 'ID_Coleccion'. Verifica el nombre en tu Excel.")
+            st.error("No se encontró la columna 'ID_Coleccion' en el Sheets.")
             
+    except NameError:
+        st.error("Error técnico: La conexión 'conn' no está definida al inicio del código.")
     except Exception as e:
-        st.error(f"Error de conexión: {e}")
-
+        st.error(f"Ocurrió un error inesperado: {e}")
+        
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
 st.sidebar.info("""
