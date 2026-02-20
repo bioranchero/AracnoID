@@ -151,36 +151,44 @@ with tab_contacto:
 # COLECCION
 with tab_coleccion:
     st.header("📚 Colección Aracnológica de Referencia")
-    st.write("Registros vinculados a ejemplares físicos en el laboratorio de la Facultad.")
     
-    # Verificamos si la variable 'df' existe y no está vacía
-    if 'df' in locals() and not df.empty:
+    # 1. Forzamos la lectura de datos para asegurar que reconozca las columnas nuevas
+    try:
+        # Asegúrate que 'conn' sea el nombre de tu conexión a GSheets
+        df = conn.read(worksheet="Form_Responses") 
         
-        # Si la columna no existe en el Sheets todavía, la creamos vacía en el código
-        # para que no marque error mientras tú la añades al Excel
-        if 'ID_Coleccion' not in df.columns:
-            df['ID_Coleccion'] = None
-
-        df_coleccion = df[df['ID_Coleccion'].notna()]
-        
-        if not df_coleccion.empty:
-            # Mostramos la tabla (asegúrate que estos nombres de columna existan en tu Sheets)
-            # Si tu columna de fecha se llama diferente, cámbiala aquí:
-            columnas_ver = ['ID_Coleccion', 'Especie', 'Marca temporal'] 
-            st.dataframe(df_coleccion[columnas_ver], use_container_width=True)
+        # 2. Verificamos si la columna de la colección existe
+        if 'ID_Coleccion' in df.columns:
+            # Filtramos solo los que tienen ID (como tu UABC_001_ST)
+            df_coleccion = df[df['ID_Coleccion'].notna()]
             
-            search_id = st.text_input("Buscar ejemplar por número de catálogo (ID):")
-            if search_id:
-                resultado = df_coleccion[df_coleccion['ID_Coleccion'].astype(str) == search_id]
-                if not resultado.empty:
-                    st.success(f"Ejemplar localizado: {resultado['Especie'].values[0]}")
-                    st.write(f"**Registrado el:** {resultado['Marca temporal'].values[0]}")
-                else:
-                    st.error("ID no encontrado en el acervo.")
+            if not df_coleccion.empty:
+                st.subheader("Registros en Laboratorio")
+                # Ajustado a tus nombres: 'ID_Coleccion', 'especie', 'Fecha_Ingreso'
+                st.dataframe(df_coleccion[['ID_Coleccion', 'especie', 'Fecha_Ingreso']], use_container_width=True)
+                
+                st.divider()
+                
+                # Buscador
+                search_id = st.text_input("Buscar por ID de catálogo:")
+                if search_id:
+                    # Limpiamos espacios por si acaso
+                    resultado = df_coleccion[df_coleccion['ID_Coleccion'].astype(str).str.strip() == search_id.strip()]
+                    
+                    if not resultado.empty:
+                        res = resultado.iloc[0]
+                        st.success(f"✅ Ejemplar: **{res['especie']}**")
+                        st.write(f"📅 **Ingreso:** {res['Fecha_Ingreso']}")
+                        st.write(f"📍 **Coordenadas:** {res['lat']}, {res['lon']}")
+                    else:
+                        st.warning("ID no encontrado. Revisa si está bien escrito en el Sheets.")
+            else:
+                st.info("Aún no hay ejemplares con ID asignado en el Google Sheets.")
         else:
-            st.info("Aún no hay ejemplares con ID de catálogo en el sistema.")
-    else:
-        st.error("No se pudieron cargar los datos del Google Sheets. Revisa la conexión.")
+            st.error("No se encontró la columna 'ID_Coleccion'. Verifica el nombre en tu Excel.")
+            
+    except Exception as e:
+        st.error(f"Error de conexión: {e}")
 
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
