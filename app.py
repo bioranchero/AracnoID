@@ -9,9 +9,9 @@ from streamlit_gsheets import GSheetsConnection
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # --- 2. CARGA DE DATOS ---
-# Leemos los datos una sola vez para que estén disponibles en toda la app
-df = conn.read(worksheet="Form_Responses")
+url = "https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/edit#gid=0"
 
+df = conn.read(spreadsheet=url, worksheet="Form_Responses")
 # 1. Configuración de seguridad
 password_correcta = "333"
 
