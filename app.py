@@ -71,7 +71,7 @@ st.subheader("Guía interactiva de aracnofauna local")
 st.write("Herramienta desarrollada para el estudio y divulgación de los arácnidos en Baja California.")
 
 # 1. Definir las pestañas en la parte superior
-tab_app, tab_registro, tab_sobre, tab_contacto = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto"])
+tab_app, tab_registro, tab_sobre, tab_contacto, tab_coleccion = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto", "🔬 Colección"])
 
 with tab_registro: # <--- Aquí es donde daba el error
     st.header("Reporta tu Hallazgo")
@@ -147,6 +147,30 @@ with tab_contacto:
 
     st.divider()
     st.write("📍 **Ubicación:** Facultad de Ciencias, Universidad Autónoma de Baja California, Ensenada, B.C.")
+
+# COLECCION
+with tab_coleccion:
+    st.header("📚 Colección Aracnológica de Referencia")
+    st.write("Registros vinculados a ejemplares físicos en el laboratorio de la Facultad.")
+    
+    # Supongamos que marcamos los ejemplares colectados en una columna llamada 'En_Coleccion'
+    # Si no la tienes, podemos filtrar los que tengan un número de catálogo
+    if 'ID_Coleccion' in df.columns:
+        df_coleccion = df[df['ID_Coleccion'].notna()]
+        
+        st.dataframe(df_coleccion[['ID_Coleccion', 'Especie', 'Fecha', 'Localidad']], use_container_width=True)
+        
+        # Un pequeño buscador por ID de catálogo
+        search_id = st.text_input("Buscar ejemplar por número de catálogo (ID):")
+        if search_id:
+            resultado = df_coleccion[df_coleccion['ID_Coleccion'] == search_id]
+            if not resultado.empty:
+                st.success(f"Ejemplar localizado: {resultado['Especie'].values[0]}")
+                st.write(f"**Ubicación de colecta:** {resultado['Localidad'].values[0]}")
+            else:
+                st.error("ID no encontrado en el acervo.")
+    else:
+        st.info("Aún no hay ejemplares vinculados a la colección física. ¡Próximamente!")
 
 # --- BARRA LATERAL (Monetización y Info) ---
 st.sidebar.header("Sobre el Proyecto")
