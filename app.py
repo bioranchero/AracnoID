@@ -173,7 +173,7 @@ with tab_coleccion:
         st.success("Acceso concedido")
 
         # --- SECCIÓN DEL CONTADOR GLOBAL ---
-if 'ID_Coleccion' in df.columns:
+    if 'ID_Coleccion' in df.columns:
     # Contamos solo las filas que tienen un ID asignado
     total_ejemplares = df['ID_Coleccion'].notna().sum()
     
