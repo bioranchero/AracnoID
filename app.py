@@ -9,7 +9,7 @@ from streamlit_gsheets import GSheetsConnection
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # --- 2. CARGA DE DATOS ---
-url = "https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/edit#gid=0"
+url = "https://docs.google.com/spreadsheets/d/1a0LgcfeQZiRqMBG0Rv5pi0B62XTaH-ySOJP_3Ikwzzg/edit?usp=sharing"
 
 df = conn.read(spreadsheet=url, worksheet="Form_Responses")
 # 1. Configuración de seguridad
