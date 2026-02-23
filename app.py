@@ -7,19 +7,6 @@ from streamlit_folium import st_folium
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 
-# --- HACK PARA COMPATIBILIDAD DE MODELOS VIEJOS ---
-from tensorflow.keras.layers import DepthwiseConv2D
-
-class UpdatedDepthwiseConv2D(DepthwiseConv2D):
-    def __init__(self, *args, **kwargs):
-        if 'groups' in kwargs:
-            size = kwargs['groups'] # O simplemente ignorarlo
-            del kwargs['groups']
-        super().__init__(*args, **kwargs)
-
-# Registramos la capa corregida para que la IA la entienda
-custom_objects = {'DepthwiseConv2D': UpdatedDepthwiseConv2D}
-
 # --- 1. CONFIGURACIÓN DE LA CONEXIÓN (IMPORTANTE) ---
 # Esta línea DEBE estar aquí arriba, fuera de cualquier pestaña.
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -114,17 +101,11 @@ with tab_app:
         
         if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
-                try:
-                    # Pon esto justo antes de cargar el modelo
-import keras
-from tensorflow.keras.models import load_model
-
-# Forzamos a que use el formato antiguo (Legacy) para que no haya errores de versión
+                # Carga simple, la magia la hará el requirements.txt que pusimos arriba
 try:
-    modelo = load_model('modelo_aracnoid.h5', compile=False)
-except Exception:
-    # Si falla, intentamos con un cargador de respaldo
     modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
+except Exception as e:
+    st.error(f"Error al cargar el modelo: {e}")
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
