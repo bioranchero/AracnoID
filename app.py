@@ -105,7 +105,7 @@ with tab_app:
         try:
                     modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                 except Exception as e:
-                        st.error(f"Error al cargar el modelo: {e}")
+        st.error(f"Error al cargar el modelo: {e}")
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
