@@ -103,7 +103,9 @@ with tab_app:
             with st.spinner("Procesando imagen..."):
                 try:
                     # 1. Cargar el modelo
-                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5')
+                    import keras
+                    # Intenta cargar el modelo ignorando los errores de configuración antiguos
+                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
