@@ -87,6 +87,9 @@ st.write("Herramienta desarrollada para el estudio y divulgación de los arácni
 # 1. Definir las pestañas en la parte superior
 tab_app, tab_registro, tab_sobre, tab_contacto, tab_coleccion = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto", "🔬 Colección"])
 
+with tab_app:
+    st.header("Identificación con IA")
+    archivo_subido = st.file_uploader("Sube una foto de la araña para análisis por IA", type=["jpg", "png", "jpeg"])
 with tab_registro: # <--- Aquí es donde daba el error
     st.header("Reporta tu Hallazgo")
     st.write("Usa este formulario oficial para subir tus datos.")
