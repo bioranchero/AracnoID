@@ -115,11 +115,16 @@ with tab_app:
         if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
                 try:
-                    # 1. Cargar el modelo
-                    import keras
-                 # Cargamos el modelo usando los 'custom_objects' que creamos arriba
-                    # Así debe quedar tu carga del modelo en app.py
-                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
+                    # Pon esto justo antes de cargar el modelo
+import keras
+from tensorflow.keras.models import load_model
+
+# Forzamos a que use el formato antiguo (Legacy) para que no haya errores de versión
+try:
+    modelo = load_model('modelo_aracnoid.h5', compile=False)
+except Exception:
+    # Si falla, intentamos con un cargador de respaldo
+    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
