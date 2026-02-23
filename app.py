@@ -102,7 +102,7 @@ with tab_app:
         if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
                 # Carga simple, la magia la hará el requirements.txt que pusimos arriba
-                    try:
+                try:
                     modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                 except Exception as e:
     st.error(f"Error al cargar el modelo: {e}")
