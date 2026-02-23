@@ -88,8 +88,53 @@ st.write("Herramienta desarrollada para el estudio y divulgación de los arácni
 tab_app, tab_registro, tab_sobre, tab_contacto, tab_coleccion = st.tabs(["🕷️ Identificador", "📝 Registrar", "👨‍🔬 Sobre Mí", "📧 Contacto", "🔬 Colección"])
 
 with tab_app:
-    st.header("Identificación con IA")
-    archivo_subido = st.file_uploader("Sube una foto de la araña para análisis por IA", type=["jpg", "png", "jpeg"])
+    st.header("🔍 Identificación por IA (Fase de Prueba)")
+    st.info("Actualmente el modelo está entrenado para detectar: **Viuda Negra** y **Violinista**.")
+
+    archivo_subido = st.file_uploader("Sube la foto del ejemplar", type=["jpg", "png", "jpeg"])
+
+    if archivo_subido is not None:
+        st.image(archivo_subido, caption="Imagen cargada", use_container_width=True)
+        
+        if st.button("🚀 Analizar ahora"):
+            with st.spinner("Procesando imagen..."):
+                try:
+                    # 1. Cargar el modelo
+                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5')
+                    
+                    # 2. Preparar la imagen
+                    imagen = Image.open(archivo_subido).convert("RGB")
+                    imagen = ImageOps.fit(imagen, (224, 224))
+                    array_imagen = np.asarray(imagen).astype(np.float32) / 255.0
+                    datos = np.expand_dims(array_imagen, axis=0)
+
+                    # 3. Predicción
+                    prediccion = modelo.predict(datos)
+                    # Tomamos la clase con mayor probabilidad
+                    indice = np.argmax(prediccion)
+                    probabilidad = prediccion[0][indice] * 100
+
+                    # 4. Definir tus dos clases (Asegúrate que el orden sea el mismo que en Teachable Machine)
+                    # Usualmente el orden es alfabético o según las creaste:
+                    clases = ["Viuda Negra", "Violinista"] 
+                    resultado = clases[indice]
+
+                    st.markdown(f"### Resultado: **{resultado}**")
+                    st.write(f"Confianza del análisis: {probabilidad:.2f}%")
+
+                    # Alerta roja para ambas porque son de importancia médica
+                    st.error("⚠️ IDENTIFICACIÓN POSITIVA: ESPECIE DE IMPORTANCIA MÉDICA")
+                    st.markdown("""
+                    **Acciones recomendadas:**
+                    * No intentar manipular al ejemplar.
+                    * En caso de mordedura, acudir al Hospital General de Ensenada.
+                    * Generar el reporte PDF para registro médico.
+                    """)
+
+                except Exception as e:
+                    st.error("Error: Asegúrate de que el archivo 'modelo_aracnoid.h5' esté en la misma carpeta que este código.")
+                    st.write(e)
+                    
 with tab_registro: # <--- Aquí es donde daba el error
     st.header("Reporta tu Hallazgo")
     st.write("Usa este formulario oficial para subir tus datos.")
