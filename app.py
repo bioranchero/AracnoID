@@ -102,10 +102,13 @@ with tab_app:
     if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
                 # Carga simple, la magia la hará el requirements.txt que pusimos arriba
-        try:
-                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
-                except Exception as e:
-    st.error(f"Error al cargar el modelo: {e}")
+       try:
+••••••••    # Aquí van todas las instrucciones de la IA
+••••••••    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
+••••••••    # ... el resto de tu código ...
+••••    except Exception as e:
+••••••••    # ESTA LÍNEA ES LA DEL ERROR: Debe estar más a la derecha que el 'except'
+••••••••    st.error(f"Error al cargar el modelo: {e}")
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
