@@ -118,7 +118,8 @@ with tab_app:
                     # 1. Cargar el modelo
                     import keras
                  # Cargamos el modelo usando los 'custom_objects' que creamos arriba
-                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', custom_objects=custom_objects, compile=False)
+                    # Así debe quedar tu carga del modelo en app.py
+                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
