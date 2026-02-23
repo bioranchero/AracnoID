@@ -105,6 +105,7 @@ with tab_app:
                     # 1. Cargar el modelo
                     import keras
                     # Intenta cargar el modelo ignorando los errores de configuración antiguos
+                    # Carga el modelo usando el formato legacy para evitar errores de versión
                     modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                     
                     # 2. Preparar la imagen
