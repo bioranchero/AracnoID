@@ -102,7 +102,7 @@ with tab_app:
         if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
                 try:
-                    # 1. Configuración de compatibilidad (Hack para Keras 3)
+                    # 1. Parche de compatibilidad
                     from tensorflow.keras.layers import DepthwiseConv2D
                     class UpdatedDepthwiseConv2D(DepthwiseConv2D):
                         def __init__(self, *args, **kwargs):
@@ -125,7 +125,7 @@ with tab_app:
                     indice = np.argmax(prediccion)
                     probabilidad = prediccion[0][indice] * 100
 
-                    # 5. Resultados (Ajusta el orden si es necesario según tu labels.txt)
+                    # 5. Resultados
                     clases = ["Viuda Negra", "Violinista"] 
                     resultado = clases[indice]
 
