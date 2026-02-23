@@ -99,16 +99,21 @@ with tab_app:
     if archivo_subido is not None:
         st.image(archivo_subido, caption="Imagen cargada", use_container_width=True)
         
-    if st.button("🚀 Analizar ahora"):
+        if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
-                # Carga simple, la magia la hará el requirements.txt que pusimos arriba
-       try:
-••••••••    # Aquí van todas las instrucciones de la IA
-••••••••    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
-••••••••    # ... el resto de tu código ...
-••••    except Exception as e:
-••••••••    # ESTA LÍNEA ES LA DEL ERROR: Debe estar más a la derecha que el 'except'
-••••••••    st.error(f"Error al cargar el modelo: {e}")
+                try:
+                    # --- CONFIGURACIÓN PARA MODELOS VIEJOS ---
+                    from tensorflow.keras.layers import DepthwiseConv2D
+                    class UpdatedDepthwiseConv2D(DepthwiseConv2D):
+                        def __init__(self, *args, **kwargs):
+                            if 'groups' in kwargs: del kwargs['groups']
+                            super().__init__(*args, **kwargs)
+                    
+                    custom_objects = {'DepthwiseConv2D': UpdatedDepthwiseConv2D}
+                    # -----------------------------------------
+
+                    # 1. Cargar el modelo con el parche de compatibilidad
+                    modelo = tf.keras.models.load_model('modelo_aracnoid.h5', custom_objects=custom_objects, compile=False)
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
@@ -118,30 +123,27 @@ with tab_app:
 
                     # 3. Predicción
                     prediccion = modelo.predict(datos)
-                    # Tomamos la clase con mayor probabilidad
                     indice = np.argmax(prediccion)
                     probabilidad = prediccion[0][indice] * 100
 
-                    # 4. Definir tus dos clases (Asegúrate que el orden sea el mismo que en Teachable Machine)
-                    # Usualmente el orden es alfabético o según las creaste:
+                    # 4. Resultados
                     clases = ["Viuda Negra", "Violinista"] 
                     resultado = clases[indice]
 
                     st.markdown(f"### Resultado: **{resultado}**")
                     st.write(f"Confianza del análisis: {probabilidad:.2f}%")
 
-                    # Alerta roja para ambas porque son de importancia médica
                     st.error("⚠️ IDENTIFICACIÓN POSITIVA: ESPECIE DE IMPORTANCIA MÉDICA")
                     st.markdown("""
                     **Acciones recomendadas:**
                     * No intentar manipular al ejemplar.
                     * En caso de mordedura, acudir al Hospital General de Ensenada.
-                    * Generar el reporte PDF para registro médico.
                     """)
 
                 except Exception as e:
-                    st.error("Error: Asegúrate de que el archivo 'modelo_aracnoid.h5' esté en la misma carpeta que este código.")
-                    st.write(e)
+                    st.error("Error al procesar la imagen.")
+                    st.info("Asegúrate de que el archivo 'modelo_aracnoid.h5' esté en la raíz de tu GitHub.")
+                    st.write(f"Detalle técnico: {e}")
                     
 with tab_registro: # <--- Aquí es donde daba el error
     st.header("Reporta tu Hallazgo")
