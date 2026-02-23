@@ -102,28 +102,30 @@ with tab_app:
         if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
                 try:
-                    # 1. Parche de compatibilidad
+                    # 1. Parche de compatibilidad (Crucial para que no de error)
                     from tensorflow.keras.layers import DepthwiseConv2D
                     class UpdatedDepthwiseConv2D(DepthwiseConv2D):
                         def __init__(self, *args, **kwargs):
                             if 'groups' in kwargs: del kwargs['groups']
                             super().__init__(*args, **kwargs)
-                    
                     custom_objects = {'DepthwiseConv2D': UpdatedDepthwiseConv2D}
 
                     # 2. Cargar el modelo
                     modelo = tf.keras.models.load_model('modelo_aracnoid.h5', custom_objects=custom_objects, compile=False)
                     
-                    # 3. Preparar la imagen
+                    # 3. Preparar la imagen (FORMA NUEVA PARA EVITAR EL ERROR DE 2 TENSORS)
                     imagen = Image.open(archivo_subido).convert("RGB")
                     imagen = ImageOps.fit(imagen, (224, 224))
                     array_imagen = np.asarray(imagen).astype(np.float32) / 255.0
                     datos = np.expand_dims(array_imagen, axis=0)
 
-                    # 4. Predicción
-                    prediccion = modelo.predict(datos)
-                    indice = np.argmax(prediccion)
-                    probabilidad = prediccion[0][indice] * 100
+                    # 4. Predicción (Usamos el modelo como función para saltar el bug de Keras 3)
+                    prediccion = modelo(datos, training=False)
+                    
+                    # Convertimos a número para leer el resultado
+                    prediccion_np = prediccion.numpy()
+                    indice = np.argmax(prediccion_np)
+                    probabilidad = prediccion_np[0][indice] * 100
 
                     # 5. Resultados
                     clases = ["Viuda Negra", "Violinista"] 
