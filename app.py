@@ -99,13 +99,13 @@ with tab_app:
     if archivo_subido is not None:
         st.image(archivo_subido, caption="Imagen cargada", use_container_width=True)
         
-        if st.button("🚀 Analizar ahora"):
+    if st.button("🚀 Analizar ahora"):
             with st.spinner("Procesando imagen..."):
                 # Carga simple, la magia la hará el requirements.txt que pusimos arriba
-                try:
+        try:
                     modelo = tf.keras.models.load_model('modelo_aracnoid.h5', compile=False)
                 except Exception as e:
-    st.error(f"Error al cargar el modelo: {e}")
+                    st.error(f"Error al cargar el modelo: {e}")
                     
                     # 2. Preparar la imagen
                     imagen = Image.open(archivo_subido).convert("RGB")
