@@ -1,7 +1,8 @@
+streamlit
 tensorflow
 pillow
-numpy
+numpy<2.0.0
 pandas
-streamlit-folium
 folium
+streamlit-folium
 st-gsheets-connection
